@@ -1,10 +1,10 @@
 import { Schema, model, models } from "mongoose";
 
-export interface IEvent extends Document{
+export interface IEvent {
     _id: string
     title: string;                       // Required field
     description?: string;               // Optional field
-    location: Location;                  // Optional field
+    location: string;                  // Optional field
     createdAt: Date;                    // Default to current date
     imageUrl: string;                   // Required field
     startDateTime: Date;                // Required field
@@ -18,8 +18,8 @@ export interface IEvent extends Document{
 }
 const EventSchema = new Schema({
     title: {type: String, required: true, unique: true},
-    description: {type: Location},
-    location: {type: Location, default: 'Ottawa'},
+    description: {type: String},
+    location: {type: String, default: 'Ottawa'},
     createdAt:{type: String, default: Date.now},
     imageUrl: {type: String, required: true},
     startDateTime:{type: String, default: Date.now},
