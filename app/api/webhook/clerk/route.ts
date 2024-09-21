@@ -87,10 +87,8 @@ export async function POST(req: Request) {
         lastName:last_name!,
         photo:image_url,
     
-    
       }
     const newUser = await  updateUser(user.clerkId, user);
-    //const newUser = '222';
     if(newUser){
         await clerkClient.users.updateUserMetadata(id, {
             publicMetadata:{
@@ -103,7 +101,6 @@ export async function POST(req: Request) {
   if(eventType === 'user.deleted'){
     const {id} = evt.data;
     const newUser = await  deleteUser(id!);
-
    
     return  NextResponse.json({message:'ok', user:newUser})
   }
