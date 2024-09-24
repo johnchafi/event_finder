@@ -14,9 +14,10 @@ let cached = (global as any).mongoose || {conn: null, promise: null}
         bufferCommands: false,
     })
     console.log('After connect => ' + MONGODB_URI);
-    cached.conn = await cached.promise
-    console.log('connectedToDatabase => ' + cached.conn);
-    return cached.conn;
+    //cached.conn = await cached.promise
+    console.log('connectedToDatabase => ');
+    return await cached.promise
+    //return cached.conn;
 }
 export default connectToDatabase;
 
