@@ -198,7 +198,7 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
                         <p className="ml-3 whitespace-nowrap text-grey-500">Start Date</p>
                         <DatePicker  
                         selected={field.value}
-                        onChange={(date: Date) => field.onChange(date)} 
+                        onChange={(date: Date | null) => field.onChange(date)} 
                         showTimeSelect
                         timeInputLabel="Time:"
                         dateFormat="MM/dd/yyyy h:mm aa"
@@ -222,7 +222,7 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
                         <p className="ml-3 whitespace-nowrap text-grey-500">End Date</p>
                         <DatePicker  
                         selected={field.value}
-                        onChange={(date: Date) => field.onChange(date)} 
+                        onChange={(date: Date | null) => field.onChange(date)} 
                         showTimeSelect
                         timeInputLabel="Time:"
                         dateFormat="MM/dd/yyyy h:mm aa"

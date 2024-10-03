@@ -9,6 +9,8 @@ import {
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import {Poppins} from "next/font/google";
+import { ThemeProvider } from '@/components/ui/theme-provider';
+
 
 import "./globals.css";
 
@@ -43,16 +45,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-     <ClerkProvider>
-      <html lang="en">
-        <body
-          className={poppins.variable}
-        >
-          {children}
-        </body>
-      </html>
 
-     </ClerkProvider>
+        <ClerkProvider>
+          
+        <html lang="en">
+          <body
+            className={poppins.variable}
+          >
+            {children}
+        
+          </body>
+        </html>
+
+      </ClerkProvider>
+
+
   //   <ClerkProvider>
   //   <html lang="en">
   //     <body>

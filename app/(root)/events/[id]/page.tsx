@@ -81,7 +81,7 @@ const EventDetails = async ({ params: { id }, searchParams }: SearchParamProps) 
     </section>
 
     <section className="wrapper my-8 flex flex-col gap-8 md:gap-12">
-      <h2 className="h2-bold">Related Events</h2>
+      <h2 className="h2-bold flex justify-center items-center">Related <span className='text-primary-500'>Events</span></h2>
 
       <Collection 
           data={relatedEvents?.data}

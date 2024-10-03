@@ -1,6 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 import { withUt } from 'uploadthing/tw';
 
+// const colors = require("tailwindcss/colors");
+// const {
+//   default: flattenColorPalette,
+// } = require("tailwindcss/lib/util/flattenColorPalette");
+
 module.exports = withUt({
   darkMode: ['class'],
   content: [
@@ -19,6 +24,12 @@ module.exports = withUt({
     },
     extend: {
       colors: {
+        black: {
+          DEFAULT: "#000",
+          100: "#000319",
+          200: "#1e1e1e",
+          300: "rgba(255, 255, 255, 0.125)",
+        },
         primary: {
           500: '#624CF5',
           50: ' #F6F8FD',
@@ -35,16 +46,16 @@ module.exports = withUt({
           400: '#AFAFAF', // Disabled - color name in figma
           50: '#F6F6F6', // White Grey - color name in figma
         },
-        black: '#000000',
-        white: '#FFFFFF',
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
-        foreground: 'hsl(var(--foreground))',
-        secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))',
-        },
+        // black: '#000000',
+        // white: '#FFFFFF',
+        // border: 'hsl(var(--border))',
+        // input: 'hsl(var(--input))',
+        // ring: 'hsl(var(--ring))',
+        // foreground: 'hsl(var(--foreground))',
+        // secondary: {
+        //   DEFAULT: 'hsl(var(--secondary))',
+        //   foreground: 'hsl(var(--secondary-foreground))',
+        // },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
@@ -96,3 +107,14 @@ module.exports = withUt({
   },
   plugins: [require('tailwindcss-animate')],
 });
+
+// function addVariablesForColors({ addBase, theme }: any) {
+//   let allColors = flattenColorPalette(theme("colors"));
+//   let newVars = Object.fromEntries(
+//     Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+//   );
+ 
+//   addBase({
+//     ":root": newVars,
+//   });
+// }
