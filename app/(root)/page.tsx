@@ -22,7 +22,7 @@ export default async function Home() {
     },
     {
       image:"/assets/images/test.png",
-      hoster: "DJ Ivan"
+      hoster: "Massada"
     },
     {
       image:"/assets/images/test.png",
@@ -45,23 +45,18 @@ export default async function Home() {
   const heroImages = [
     {
       image:"/assets/images/audience.jpg",
-      hoster: "DJ Ivan"
     },
     {
       image:"/assets/images/concert.jpg",
-      hoster: "DJ Sparx"
     },
     {
       image:"/assets/images/drinks.jpg",
-      hoster: "DJ Ivan"
     },
     {
       image:"/assets/images/artist.jpg",
-      hoster: "DJ Sparx"
     },
     {
       image:"/assets/images/crowd.jpg",
-      hoster: "DJ Ivan"
     },
    
   
@@ -74,6 +69,7 @@ export default async function Home() {
     limit: 6
 
   });
+  
   return (
     <>
     <section className="bg-dotted-pattern pattern bg-contain py-5 md:py-10">
@@ -123,7 +119,7 @@ export default async function Home() {
           totalPages={2}
         />
 
-    <h2 className="h2-bold">Trusted by Thousands of <span className="text-primary-800">organizers</span></h2>
+      <h2 className="h2-bold">Trusted by many of <span className="text-primary-800">organizers</span></h2>
         <InfiniteMovingCards
             items={testimonials}
             direction="left"
