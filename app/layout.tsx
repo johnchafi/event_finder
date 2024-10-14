@@ -9,6 +9,7 @@ import {
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import {Poppins} from "next/font/google";
+import { dark } from '@clerk/themes'
 import { ThemeProvider } from '@/components/ui/theme-provider';
 
 
@@ -46,13 +47,25 @@ export default function RootLayout({
 }>) {
   return (
 
-        <ClerkProvider>
+        <ClerkProvider
+          appearance={{
+            baseTheme: dark,
+          }} 
+        >
           
         <html lang="en">
           <body
             className={poppins.variable}
           >
+            {/* {children} */}
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
             {children}
+          </ThemeProvider>
         
           </body>
         </html>
