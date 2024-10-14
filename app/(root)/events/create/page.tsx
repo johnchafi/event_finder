@@ -13,7 +13,7 @@ const CreateEvent = () => {
         <>
         <section className='bg-dotted-pattern bg-cover bg-center py-5 md:py-10'>
             <h3 className='wrapper h3-bold text-center'>
-                    Create <span className='text-primary-500'>Event</span>
+                    Create <span className='text-primary-800'>Event</span>
             </h3>
             <div className='wrapper my-8'>
                 <EventForm userId={userId} type = "Create" />

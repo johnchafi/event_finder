@@ -15,7 +15,7 @@ const Header = () => {
         setTheme(theme === "light" ? "dark" : "light");
     };
   return (
-    <header className='w-full border-b '>  
+    <header className='w-full  '>  
         <div className='wrapper flex-between'>
             <Link href='/' className='w-36'>
             <Image src="/assets/images/logo.svg" width={128} height={38} alt='Evently logo' priority={false} placeholder ="empty"/>
@@ -28,10 +28,10 @@ const Header = () => {
             </SignedIn>
         
             <div className='flex w-32 justify-end gap-3'>
-                <Button className="flex justify-center items-center" variant="outline" size="icon" onClick={() => toggleTheme()}>
+                {/* <Button className="flex justify-center items-center" variant="outline" size="icon" onClick={() => toggleTheme()}>
                     <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
                     <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />        
-                </Button>
+                </Button> */}
                 <SignedIn >
                     <UserButton />
                     <MobileNav />

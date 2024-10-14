@@ -1,19 +1,54 @@
+// import * as React from "react"
+ 
+// import {
+//   Carousel,
+//   CarouselContent,
+//   CarouselItem,
+//   CarouselNext,
+//   CarouselPrevious,
+// } from "@/components/ui/carousel"
+// import Image from "next/image"
+ 
+// export function CarouselHero() {
+//   return (
+//     <Carousel className="w-full">
+//       <CarouselContent>
+//         {Array.from({ length: 5 }).map((_, index) => (
+//           <CarouselItem key={index}>
+//             <div className="p-1">
+//               {/* <Card>
+//                 <CardContent className="flex aspect-square items-center justify-center p-6">
+//                   <span className="text-4xl font-semibold">{index + 1}</span>
+//                 </CardContent>
+//               </Card> */}
+//             <Image 
+//                 src="/assets/images/audience.jpg" alt="hero" width={1000} height={1000} className="max-h[70vh] object-contain object-center 2xl:max-h-[50vh]"
+//             />
+//             </div>
+//           </CarouselItem>
+//         ))}
+//       </CarouselContent>
+//       <CarouselPrevious />
+//       <CarouselNext />
+//     </Carousel>
+//   )
+// }
+
 "use client";
 
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
-export const InfiniteMovingCards = ({
+export const InfiniteCarousel = ({
   items,
   direction = "left",
-  speed = "fast",
+  speed = "slow",
   pauseOnHover = false,
   className,
 }: {
   items: {
     image: string,
-    hoster: string,
   }[];
   direction?: "left" | "right";
   speed?: "fast" | "normal" | "slow";
@@ -80,30 +115,25 @@ export const InfiniteMovingCards = ({
       <ul
         ref={scrollerRef}
         className={cn(
-          " flex justify-center items-center py-4 gap-20 w-max flex-nowrap",
+          " flex justify-center items-center py-4 gap-24 w-max flex-nowrap",
           start && "animate-scroll ",
           pauseOnHover && "hover:[animation-play-state:paused]"
         )}
       >
         {items.map((item, idx) => (
           <li
-            className="max-w-full relative rounded-full flex-shrink-0"
             key={idx}
           >
-            <div className="flex justify-center items-center gap-3">
-               <div className="relative w-16 h-16">
+            
+               <div className="relative w-96 h-72">
                     <Image
-                      className="rounded-full"
                         src={item.image}
                         alt="pic of dog"
                         fill={true}
                       />
                           
                 </div>
-                <h1>
-                  {item.hoster}
-                </h1>
-            </div>
+          
         
           </li>
         ))}

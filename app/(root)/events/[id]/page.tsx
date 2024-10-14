@@ -42,7 +42,7 @@ const EventDetails = async ({ params: { id }, searchParams }: SearchParamProps) 
 
               <p className="p-medium-18 ml-2 mt-2 sm:mt-0">
                 by{' '}
-                <span className="text-primary-500">{event.organizer.firstName} {event.organizer.lastName}</span>
+                <span className="text-primary-800">{event.organizer.firstName} {event.organizer.lastName}</span>
               </p>
             </div>
           </div>
@@ -73,14 +73,14 @@ const EventDetails = async ({ params: { id }, searchParams }: SearchParamProps) 
           <div className="flex flex-col gap-2">
             <p className="p-bold-20 text-grey-600">What You'll Learn:</p>
             <p className="p-medium-16 lg:p-regular-18">{event.description}</p>
-            <p className="p-medium-16 lg:p-regular-18 truncate text-primary-500 underline">{event.url}</p>
+            <p className="p-medium-16 lg:p-regular-18 truncate text-primary-800 underline">{event.url}</p>
           </div>
         </div>
       </div>
     </section>
 
     <section className="wrapper my-8 flex flex-col gap-8 md:gap-12">
-      <h2 className="h2-bold flex justify-center items-center">Related <span className='text-primary-500'>Events</span></h2>
+      <h2 className="h2-bold flex justify-center items-center">Related <span className='text-primary-800'>Events</span></h2>
 
       <Collection 
           data={relatedEvents?.data}
