@@ -119,7 +119,7 @@ export default async function Home() {
           totalPages={2}
         />
 
-      <h2 className="h2-bold">Trusted by many of <span className="text-primary-800">organizers</span></h2>
+      <h2 className="h2-bold">Trusted by many <span className="text-primary-800">organizers</span></h2>
         <InfiniteMovingCards
             items={testimonials}
             direction="left"

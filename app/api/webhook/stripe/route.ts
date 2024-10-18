@@ -53,7 +53,9 @@ export async function POST(request: Request) {
   const eventType = event.type
 
   // CREATE
+  console.log('eventType => ' + eventType);
   if (eventType === 'checkout.session.completed') {
+    console.log('Enter in create');
     const { id, amount_total, metadata } = event.data.object
 
     const order = {
