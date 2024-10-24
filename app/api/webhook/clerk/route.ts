@@ -76,13 +76,10 @@ export async function POST(req: Request) {
                 userId: newUser._id,
             }
         })
+        await sendConfirmationEmail();
     }
 
     // Send confirmation Email to new Users
-    if(newUser){
-      const { error } = await sendConfirmationEmail();
-      if (error) return { error: 'Failed to send confirmation email' };
-    }
     return  NextResponse.json({message:'ok', user:newUser})
   }
   if(eventType === 'user.updated'){
