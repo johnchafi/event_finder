@@ -8,7 +8,12 @@ import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import MagicButton from "@/components/ui/magicButton";
 import { NavigationIcon } from "lucide-react";
 import {InfiniteCarousel } from "@/components/ui/hero";
-export default async function Home() {
+import Search from "@/components/shared/Search";
+import { SearchParamProps } from "@/types";
+export default async function Home({searchParams} : SearchParamProps) {
+  const page = Number(searchParams?.page) || 1;
+  const searchText = (searchParams?.query as string || '');
+  const category = (searchParams?.category as string || '');
 
 
  const testimonials = [
@@ -63,8 +68,8 @@ export default async function Home() {
   ];
 
   const events = await getAllEvents({
-    query:'',
-    category:'',
+    query: searchText,
+    category,
     page: 1,
     limit: 6
 
@@ -97,8 +102,19 @@ export default async function Home() {
    
       <section id="events" className="wrapper w-full my-8 flex flex-col gap-8 text-center">
         <div className="flex w-full flex-col gap-5 md:flex-row">
-          search
-          CategoryFilter
+          <Search />
+          <div>
+          {/* <input
+            type='text'
+            className=
+              "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          /> */}
+
+          </div>
+        
+
+          
+        {/* CategoryFilter */}
 
         </div>
         <div className="flex w-full justify-center items-center py-4 rounded-lg bg-slate ">

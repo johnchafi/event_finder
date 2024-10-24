@@ -121,10 +121,12 @@ export async function getOrdersByEvent({ searchString, eventId }: GetOrdersByEve
 export async function getOrdersByUser({ userId, limit = 3, page }: GetOrdersByUserParams) {
   try {
     await connectToDatabase()
+    console.log('Entered');
 
     const skipAmount = (Number(page) - 1) * limit
-    const conditions = { buyer: userId }
-
+    // const conditions = { buyer: userId }
+    const conditions = { buyer: '66fa11e6f5826cb30aee29bc' }
+    //66fa11e6f5826cb30aee29bc
     const orders = await Order.distinct('event._id')
       .find(conditions)
       .sort({ createdAt: 'desc' })
@@ -139,6 +141,8 @@ export async function getOrdersByUser({ userId, limit = 3, page }: GetOrdersByUs
           select: '_id firstName lastName',
         },
       })
+
+    console.log("orders =>" + orders);
 
     const ordersCount = await Order.distinct('event._id').countDocuments(conditions)
 

@@ -3,6 +3,7 @@ import { headers } from 'next/headers'
 import { clerkClient, WebhookEvent } from '@clerk/nextjs/server'
 import { createUser, updateUser, deleteUser } from '@/lib/actions/user.actions'
 import { NextResponse } from 'next/server'
+import { sendConfirmationEmail } from '@/lib/utils'
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
@@ -66,7 +67,6 @@ export async function POST(req: Request) {
         lastName:last_name!,
         photo:image_url,
     
-    
       }
     const newUser = await  createUser(user);
    
@@ -76,6 +76,12 @@ export async function POST(req: Request) {
                 userId: newUser._id,
             }
         })
+    }
+
+    // Send confirmation Email to new Users
+    if(newUser){
+      const { error } = await sendConfirmationEmail();
+      if (error) return { error: 'Failed to send confirmation email' };
     }
     return  NextResponse.json({message:'ok', user:newUser})
   }
@@ -90,7 +96,7 @@ export async function POST(req: Request) {
         photo:image_url,
     
       }
-    const newUser = await  updateUser(user.clerkId, user);
+    const newUser = await updateUser(user.clerkId, user);
     if(newUser){
         await clerkClient.users.updateUserMetadata(id, {
             publicMetadata:{

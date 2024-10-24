@@ -2,6 +2,9 @@ import { type ClassValue, clsx } from 'clsx'
 
 import { twMerge } from 'tailwind-merge'
 import qs from 'query-string'
+import * as React from 'react';
+import EmailTemplate from '@/components/shared/EmailTemplate';
+import { Resend } from 'resend';
 
 import { UrlQueryParams, RemoveUrlQueryParams } from '@/types'
 
@@ -91,3 +94,26 @@ export const handleError = (error: unknown) => {
   console.error(error)
   throw new Error(typeof error === 'string' ? error : JSON.stringify(error))
 }
+
+
+export const sendConfirmationEmail = async () => {
+  const resend = new Resend(process.env.RESEND_API_KEY);
+
+  const from = `Email Confirmation <johnchafi@gmail.com`;
+
+  const res = await resend.emails.send({
+    from,
+    to: 'uwjean22@gmail.com',
+    subject: 'Confirm your email',
+    react: React.createElement(EmailTemplate, {
+      firstName :'Jean de Dieu',
+    }),
+    headers: {
+      // this is important for if the subscriber has to resend the confirmation email.
+      // the date header ensures there is a change in the email and it is not marked as spam.
+      Date: new Date().toUTCString(),
+    },
+  });
+
+  return res;
+};
