@@ -11,6 +11,7 @@ import localFont from "next/font/local";
 import {Poppins} from "next/font/google";
 import { dark } from '@clerk/themes'
 import { ThemeProvider } from '@/components/ui/theme-provider';
+import CustomCursor from '@/components/ui/custom-cursor';
 
 
 import "./globals.css";
@@ -58,6 +59,7 @@ export default function RootLayout({
             className={poppins.variable}
           >
             {/* {children} */}
+          
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
@@ -65,6 +67,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             {children}
+            {/* <CustomCursor />{children} */}
           </ThemeProvider>
         
           </body>

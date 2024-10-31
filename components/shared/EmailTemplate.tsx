@@ -19,7 +19,8 @@ interface EmailTemplateProps {
 const EmailTemplate = ({firstName}: EmailTemplateProps) => {
     alert('Yola');
   return (
-    <Html lang="en">
+  
+      <Html lang="en">
       <Head />
       <Preview>Confirm your email address</Preview>
       <Body className="mx-auto bg-white p-4 font-sans">
@@ -46,6 +47,7 @@ const EmailTemplate = ({firstName}: EmailTemplateProps) => {
         </Container>
       </Body>
     </Html>
+ 
   )
 }
 
