@@ -18,7 +18,7 @@ const Header = () => {
     <header className='w-full  '>  
         <div className='wrapper flex-between'>
             <Link href='/' className='w-36'>
-            <Image src="/assets/images/logo.svg" width={128} height={38} alt='Evently logo' priority={false} placeholder ="empty"/>
+            <Image src="/assets/images/logo.svg" width={128} height={38} alt='Eventhub logo' priority={false} placeholder ="empty"/>
             </Link>
             <SignedIn>
                 <nav className='md:flex-between hidden w-full max-w-xs'>

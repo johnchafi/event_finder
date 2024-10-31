@@ -81,7 +81,7 @@ export default async function Home({searchParams} : SearchParamProps) {
       <div className="wrapper grid grid-cols-1 gap-5 md:grid-cols-2 2xl:gap-0">
         <div className="flex flex-col justify-center gap-8">
           <h1 className="h1-bold"><span className="h1-bold text-primary-800"> Host, connect , </span>  celebrate: Your <span className="h1-bold text-primary-800"> events , </span> our platform!</h1>
-          <p className="p-regular-12 md:p-regular-16">Evently simplifies event planning by allowing you to manage guests, sell tickets, coordinate details, and connect seamlessly. It’s the ultimate solution for hassle-free event enjoyment!</p>
+          <p className="p-regular-12 md:p-regular-16">Eventhub simplifies event planning by allowing you to manage guests, sell tickets, coordinate details, and connect seamlessly. It’s the ultimate solution for hassle-free event enjoyment!</p>
           <Link className="button w-full" href="#events">
             <MagicButton
               title=" Explorer Now"

@@ -35,8 +35,8 @@ const poppins = Poppins({subsets : ['latin'],
 })
 
 export const metadata: Metadata = {
-  title: "Evently",
-  description: "Evently is a platform for event management",
+  title: "Eventhub",
+  description: "Eventhub is a platform for event management",
   icons:'/assets/images/logo.svg'
 };
 
