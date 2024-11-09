@@ -42,7 +42,7 @@ export const checkoutOrder = async (order: CheckoutOrderParams) => {
       cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
     });
 
-    await sendConfirmationEmail();
+    //await sendConfirmationEmail();
     redirect(session.url!)
   } catch (error) {
     throw error;
