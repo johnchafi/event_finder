@@ -19,6 +19,10 @@ export default async function Home({searchParams} : SearchParamProps) {
  const testimonials = [
     {
       image:"/assets/images/test.png",
+      hoster: "PCK"
+    },
+    {
+      image:"/assets/images/test.png",
       hoster: "DJ Ivan"
     },
     {
