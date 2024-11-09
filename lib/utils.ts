@@ -110,7 +110,7 @@ export const sendConfirmationEmail = async ({order} : any) => {
     from: 'Acme <onboarding@resend.dev>',
     to: 'johnchafi@gmail.com',
     subject: 'Confirm your email',
-    react: EmailTemplate({ firstName: 'John' , qrcodeUrl: qrcodeUrl}) as React.ReactElement,
+    react: EmailTemplate({ firstName: 'John' , orderId: order._id}) as React.ReactElement,
     headers: {
       // this is important for if the subscriber has to resend the confirmation email.
       // the date header ensures there is a change in the email and it is not marked as spam.
