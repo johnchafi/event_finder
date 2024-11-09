@@ -47,7 +47,7 @@ export const checkoutOrder = async (order: CheckoutOrderParams) => {
 }
 
 export const createOrder = async (order: CreateOrderParams) => {
-  
+
   try {
     await connectToDatabase();
     
@@ -57,6 +57,8 @@ export const createOrder = async (order: CreateOrderParams) => {
       buyer: order.buyerId,
     });
 
+    // Send confirmation after create order;
+    await sendConfirmationEmail();
     return JSON.parse(JSON.stringify(newOrder));
   } catch (error) {
     handleError(error);
