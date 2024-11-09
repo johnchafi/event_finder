@@ -30,6 +30,8 @@ const Checkout = ({ event, userId }: { event: IEvent, userId: string }) => {
     }
 
     await checkoutOrder(order);
+ 
+
   }
 
   return (

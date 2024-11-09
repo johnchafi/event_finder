@@ -3,7 +3,7 @@
 import Stripe from 'stripe';
 import { CheckoutOrderParams, CreateOrderParams, GetOrdersByEventParams, GetOrdersByUserParams } from "@/types"
 import { redirect } from 'next/navigation';
-import { handleError } from '../utils';
+import { handleError, sendConfirmationEmail } from '../utils';
 //import { connectToDatabase } from '../database';
 import connectToDatabase from '../database';
 import Order from '../database/models/order.model';
@@ -39,6 +39,7 @@ export const checkoutOrder = async (order: CheckoutOrderParams) => {
       cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
     });
 
+    //await sendConfirmationEmail();
     redirect(session.url!)
   } catch (error) {
     throw error;
@@ -46,6 +47,7 @@ export const checkoutOrder = async (order: CheckoutOrderParams) => {
 }
 
 export const createOrder = async (order: CreateOrderParams) => {
+  
   try {
     await connectToDatabase();
     
@@ -121,7 +123,6 @@ export async function getOrdersByEvent({ searchString, eventId }: GetOrdersByEve
 export async function getOrdersByUser({ userId, limit = 3, page }: GetOrdersByUserParams) {
   try {
     await connectToDatabase()
-    console.log('Entered');
 
     const skipAmount = (Number(page) - 1) * limit
     // const conditions = { buyer: userId }
@@ -141,8 +142,6 @@ export async function getOrdersByUser({ userId, limit = 3, page }: GetOrdersByUs
           select: '_id firstName lastName',
         },
       })
-
-    console.log("orders =>" + orders);
 
     const ordersCount = await Order.distinct('event._id').countDocuments(conditions)
 

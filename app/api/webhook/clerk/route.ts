@@ -76,7 +76,7 @@ export async function POST(req: Request) {
                 userId: newUser._id,
             }
         })
-        await sendConfirmationEmail();
+        // await sendConfirmationEmail();
     }
 
     // Send confirmation Email to new Users

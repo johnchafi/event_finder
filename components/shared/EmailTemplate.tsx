@@ -1,3 +1,4 @@
+
 import * as React from 'react';
 import {
     Body,
@@ -10,14 +11,16 @@ import {
     Text,
     Tailwind,
     Link,
+    Img,
+  
   } from '@react-email/components';
 
 interface EmailTemplateProps {
-    firstName: string;
+    firstName: string,
+    qrcodeUrl: string
   }
 
-const EmailTemplate = ({firstName}: EmailTemplateProps) => {
-    alert('Yola');
+export const EmailTemplate = ({firstName, qrcodeUrl}: EmailTemplateProps) => {
   return (
   
       <Html lang="en">
@@ -44,11 +47,10 @@ const EmailTemplate = ({firstName}: EmailTemplateProps) => {
             *If you did not request this email, there is nothing to worry about,
             you can safely ignore it.
           </Text>
+         <img src='https://api.qrserver.com/v1/create-qr-code/?size=84x84&data=635323237&johnchafi'/>
         </Container>
       </Body>
     </Html>
- 
   )
 }
 
-export default EmailTemplate

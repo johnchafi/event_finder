@@ -34,8 +34,10 @@
 import stripe from 'stripe'
 import { NextResponse } from 'next/server'
 import { createOrder } from '@/lib/actions/order.actions'
+import { sendConfirmationEmail } from '@/lib/utils'
 
 export async function POST(request: Request) {
+  console.log('Entered in create order');
   const body = await request.text()
 
   const sig = request.headers.get('stripe-signature') as string
@@ -54,7 +56,6 @@ export async function POST(request: Request) {
 
   // CREATE
   if (eventType === 'checkout.session.completed') {
-    console.log('Enter in create');
     const { id, amount_total, metadata } = event.data.object
 
     const order = {
@@ -65,7 +66,9 @@ export async function POST(request: Request) {
       createdAt: new Date(),
     }
 
-    const newOrder = await createOrder(order)
+    const newOrder = await createOrder(order);
+    // Send confirmation after create order;
+    await sendConfirmationEmail();
     return NextResponse.json({ message: 'OK', order: newOrder })
   }
 

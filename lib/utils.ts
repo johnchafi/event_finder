@@ -1,12 +1,15 @@
+
 import { type ClassValue, clsx } from 'clsx'
 
 import { twMerge } from 'tailwind-merge'
 import qs from 'query-string'
 import * as React from 'react';
-import EmailTemplate from '@/components/shared/EmailTemplate';
+//import EmailTemplate from '@/components/shared/EmailTemplate';
+import { EmailTemplate }  from '@/components/shared/EmailTemplate';
 import { Resend } from 'resend';
 
 import { UrlQueryParams, RemoveUrlQueryParams } from '@/types'
+import QRCode from 'qrcode'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -97,23 +100,25 @@ export const handleError = (error: unknown) => {
 
 
 export const sendConfirmationEmail = async () => {
+
+  //https://api.qrserver.com/v1/create-qr-code/?size=84x84&data=https://github.com/johnchafi
+  const qrcodeUrl = await QRCode.toDataURL('https://github.com/johnchafi');
   const resend = new Resend(process.env.RESEND_API_KEY);
 
-  const from = `Email Confirmation <johnchafi@gmail.com`;
-
   const res = await resend.emails.send({
-    from,
-    to: 'uwjean22@gmail.com',
+    from: 'Acme <onboarding@resend.dev>',
+    to: 'johnchafi@gmail.com',
     subject: 'Confirm your email',
-    react: React.createElement(EmailTemplate, {
-      firstName :'Jean de Dieu',
-    }),
+    react: EmailTemplate({ firstName: 'John' , qrcodeUrl: qrcodeUrl}) as React.ReactElement,
     headers: {
       // this is important for if the subscriber has to resend the confirmation email.
       // the date header ensures there is a change in the email and it is not marked as spam.
       Date: new Date().toUTCString(),
     },
+ 
   });
+
+  console.log(res);
 
   return res;
 };
