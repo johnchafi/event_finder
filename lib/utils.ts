@@ -99,11 +99,12 @@ export const handleError = (error: unknown) => {
 }
 
 
-export const sendConfirmationEmail = async () => {
+export const sendConfirmationEmail = async ({order} : any) => {
 
   //https://api.qrserver.com/v1/create-qr-code/?size=84x84&data=https://github.com/johnchafi
   const qrcodeUrl = await QRCode.toDataURL('https://github.com/johnchafi');
   const resend = new Resend(process.env.RESEND_API_KEY);
+  console.log(order);
 
   const res = await resend.emails.send({
     from: 'Acme <onboarding@resend.dev>',

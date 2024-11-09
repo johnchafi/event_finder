@@ -42,7 +42,6 @@ export const checkoutOrder = async (order: CheckoutOrderParams) => {
       cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
     });
 
-    //await sendConfirmationEmail();
     redirect(session.url!)
   } catch (error) {
     throw error;
@@ -60,8 +59,6 @@ export const createOrder = async (order: CreateOrderParams) => {
       buyer: order.buyerId,
     });
 
-    // Send confirmation after create order;
-    //await sendConfirmationEmail();
     return JSON.parse(JSON.stringify(newOrder));
   } catch (error) {
     handleError(error);

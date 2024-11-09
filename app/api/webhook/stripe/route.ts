@@ -67,7 +67,7 @@ export async function POST(request: Request) {
     }
     //await sendConfirmationEmail();
     const newOrder = await createOrder(order);
-    await sendConfirmationEmail();
+    await sendConfirmationEmail({order: newOrder});
     return NextResponse.json({ message: 'OK', order: newOrder })
   }
 

@@ -17,10 +17,10 @@ import {
 
 interface EmailTemplateProps {
     firstName: string,
-    qrcodeUrl: string
+    orderId: string
   }
 
-export const EmailTemplate = ({firstName, qrcodeUrl}: EmailTemplateProps) => {
+export const EmailTemplate = ({firstName, orderId}: EmailTemplateProps) => {
   return (
   
       <Html lang="en">
@@ -47,7 +47,7 @@ export const EmailTemplate = ({firstName, qrcodeUrl}: EmailTemplateProps) => {
             *If you did not request this email, there is nothing to worry about,
             you can safely ignore it.
           </Text>
-         <img src='https://api.qrserver.com/v1/create-qr-code/?size=84x84&data=635323237&johnchafi'/>
+         <img src={`https://api.qrserver.com/v1/create-qr-code/?size=84x84&data=${orderId}`}/>
         </Container>
       </Body>
     </Html>
