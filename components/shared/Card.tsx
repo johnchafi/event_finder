@@ -21,16 +21,17 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
   const isEventCreator = userId === event.organizer._id.toString();
 
   return (
-    <div className="group relative flex min-h-[280px] w-full max-w-[400px] flex-col overflow-hidden rounded-xl shadow-md transition-all hover:shadow-lg md:min-h-[350px]">
+
+      <div className="group relative flex min-h-[280px] w-full max-w-[450px] flex-col overflow-hidden transition-all md:min-h-[350px] mx-4 my-4">
       <Link 
         href={`/events/${event._id}`}
         style={{backgroundImage: `url(${event.imageUrl})`}}
-        className="flex-center flex-grow bg-gray-50 bg-cover bg-center text-grey-500"
+        className="flex-center flex-grow bg-gray-50 bg-cover bg-center text-grey-500 rounded-lg"
       />
       {/* IS EVENT CREATOR ... */}
 
       {isEventCreator && !hidePrice && (
-        <div className="absolute right-2 top-2 flex flex-col gap-4 rounded-xl bg-white p-3 shadow-sm transition-all">
+        <div className="absolute right-2 top-2 flex flex-col gap-4 rounded-xl bg-[#35383F] p-3 shadow-sm transition-all">
           <Link href={`/events/${event._id}/update`}>
             <Image src="/assets/icons/edit.svg" alt="edit" width={20} height={20} />
           </Link>
@@ -61,7 +62,6 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
         <p className="p-regular-12 md:p-regular-14 text-start text-gray-400">{event.location}</p>
       </div>
      
-       
 {/* 
         <Link href={`/events/${event._id}`}>
           <p className="p-medium-16 md:p-medium-20 line-clamp-2 flex-1 text-black">{event.title}</p>
@@ -80,6 +80,11 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
         </div> 
    
     </div>
+
+
+   
+
+  
   )
 }
 

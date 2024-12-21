@@ -39,12 +39,15 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { Button } from "./button";
+import MagicButton from "./magicButton";
+import { NavigationIcon } from "lucide-react";
 
 export const InfiniteCarousel = ({
   items,
   direction = "left",
   speed = "slow",
-  pauseOnHover = false,
+  pauseOnHover = true,
   className,
 }: {
   items: {
@@ -108,16 +111,17 @@ export const InfiniteCarousel = ({
     <div
       ref={containerRef}
       className={cn(
-        "scroller relative z-20  max-w-7xl overflow-hidden  [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
+        "scroller flex-col items-center justify-center relative z-20  max-w-7xl overflow-hidden  [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
         className
       )}
     >
+      <div className="w-full text-center font-bold">HOTTEST 🔥 🔥 🔥</div>
       <ul
         ref={scrollerRef}
         className={cn(
-          " flex justify-center items-center py-4 gap-24 w-max flex-nowrap",
+          " flex justify-center items-center py-4 gap-16 w-max flex-nowrap",
           start && "animate-scroll ",
-          pauseOnHover && "hover:[animation-play-state:paused]"
+          pauseOnHover && "hover:[animation-play-state:paused] hover:cursor-pointer"
         )}
       >
         {items.map((item, idx) => (
@@ -125,14 +129,25 @@ export const InfiniteCarousel = ({
             key={idx}
           >
             
-               <div className="relative w-96 h-72">
+               <div className="relative w-96 h-72 flex justify-center items-center group">
                     <Image
                         src={item.image}
                         alt="pic of dog"
                         fill={true}
                       />
+                      {/* <button className="absolute z-50 hidden group-hover:block">Buy Ticket </button> */}
+                      
+                      <div className="absolute z-50 hidden group-hover:block">
+                        <MagicButton
+                          title="Buy Ticket"
+                          icon={<NavigationIcon className='w-4'/>}
+                          position="right"
+                        />
+                      </div>
+                     
                           
                 </div>
+                
           
         
           </li>

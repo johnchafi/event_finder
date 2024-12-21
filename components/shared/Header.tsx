@@ -21,7 +21,7 @@ const Header = () => {
             <Image src="/assets/images/logo.svg" width={128} height={38} alt='Eventhub logo' priority={false} placeholder ="empty"/>
             </Link>
             <SignedIn>
-                <nav className='md:flex-between hidden w-full max-w-xs'>
+                <nav className='hidden md:flex-between w-full max-w-xs'>
                     <NavItems />
                     
                 </nav>

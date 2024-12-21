@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import React from 'react'
 import Collection from '@/components/shared/Collection'
+import CollectionTickets from '@/components/shared/CollectionTickets'
 import { auth } from '@clerk/nextjs/server'
 import { getEventsByUser } from '@/lib/actions/event.actions'
 import { SearchParamProps } from '@/types'
@@ -103,7 +104,7 @@ const ProfilePage = async ({ searchParams }: SearchParamProps) => {
         </section>
   
         <section className="wrapper my-8">
-          <Collection 
+          <CollectionTickets 
             data={orderedEvents}
             emptyTitle="No event tickets purchased yet"
             emptyStateSubtext="No worries - plenty of exciting events to explore!"

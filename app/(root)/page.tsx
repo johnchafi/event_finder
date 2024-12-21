@@ -78,7 +78,15 @@ export default async function Home({searchParams} : SearchParamProps) {
     limit: 6
 
   });
+const activeEvents = events?.data.filter((event:any) => Date.parse(event.startDateTime) > Date.now())
+    .sort((a:any, b:any) => a.startDateTime - b.startDateTime);
+
+const pastEvents = events?.data.filter((event:any) => Date.parse(event.startDateTime) <= Date.now())
+    .sort((a:any, b:any) => b.startDateTime - a.startDateTime);
   
+// console.log(activeEvents);
+// console.log(pastEvents);
+
   return (
     <>
     <section className="bg-dotted-pattern pattern bg-contain py-5 md:py-10">
@@ -96,6 +104,7 @@ export default async function Home({searchParams} : SearchParamProps) {
 
 
         </div>
+        
         <InfiniteCarousel items={heroImages} />
         {/* <CarouselHero /> */}
         {/* <Image 
@@ -107,30 +116,33 @@ export default async function Home({searchParams} : SearchParamProps) {
       <section id="events" className="wrapper w-full my-8 flex flex-col gap-8 text-center">
         <div className="flex w-full flex-col gap-5 md:flex-row">
           <Search />
-          <div>
-          {/* <input
-            type='text'
-            className=
-              "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-          /> */}
-
-          </div>
-        
-
           
         {/* CategoryFilter */}
 
         </div>
-        <div className="flex w-full justify-center items-center py-4 rounded-lg bg-slate ">
+        <div className="flex w-full justify-center items-center py-4 rounded-lg bg-slate">
           <h2 className="h2-bold">
-          ACTIVE <span className="text-primary-800">EVENTS</span>
+            ACTIVE <span className="text-primary-800">EVENTS</span>
           </h2>
          
-         
-
         </div>
         <Collection 
-          data={events?.data}
+          data={activeEvents}
+          emptyTitle="No Events Found"
+          emptyStateSubtext="Come back later"
+          collectionType="All_Events"
+          limit={6}
+          page={1}
+          totalPages={2}
+        />
+
+      <div className="flex w-full justify-center items-center py-4 rounded-lg bg-slate">
+          <h2 className="h2-bold">
+            PAST <span className="text-primary-800">EVENTS</span>
+          </h2>
+        </div>
+        <Collection 
+          data={pastEvents}
           emptyTitle="No Events Found"
           emptyStateSubtext="Come back later"
           collectionType="All_Events"

@@ -1,4 +1,5 @@
-import React from 'react'
+"use client"
+import { useState } from "react"
 import {
     Sheet,
     SheetClose,
@@ -14,19 +15,20 @@ import { Separator } from '../ui/separator'
 import NavItems from './NavItems'
 
 const MobileNav = () => {
+  const [sheetOpen, setSheetOpen] = useState(false);
   return (
     <nav className='md:hidden'>
-        <Sheet>
-            <SheetTrigger className='align-middle'><Image src="/assets/icons/menu.svg" height={24} width={24} alt='menu' className='cursor-pointer'/></SheetTrigger>
-            <SheetContent className='flex flex-col gap-6  bg-white'>
+        <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+            <SheetTrigger className='align-middle cursor-pointer bg-[#66696F] rounded-sm'><Image src="/assets/icons/menu.svg" height={24} width={24} alt='menu' /></SheetTrigger>
+            <SheetContent className='md:hidden flex flex-col gap-6 bg-[#121212] border border-[#121212] shadow-sm shadow-primary-800'>
                 <Image 
                 src="/assets/images/logo.svg"
                 width={128}
                 height={38}
                 alt='logo'
                 />
-                <Separator className='border border-gray-50'/>
-                <NavItems />
+                <Separator className='border border-[#8e9dbc]'/>
+                <NavItems setOpen={setSheetOpen}/>
             </SheetContent>
         </Sheet>
     </nav>

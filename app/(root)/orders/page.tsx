@@ -6,6 +6,7 @@ import { IOrderItem } from '@/lib/database/models/order.model'
 
 const Orders = async ({ searchParams }: SearchParamProps) => {
   const eventId = (searchParams?.eventId as string) || ''
+  const scannerId = eventId.slice(-5);
   const searchText = (searchParams?.query as string) || ''
 
   const orders = await getOrdersByEvent({ eventId, searchString: searchText })
@@ -20,8 +21,17 @@ const Orders = async ({ searchParams }: SearchParamProps) => {
         <Search placeholder="Search buyer name..." />
       </section>
 
+      {
+        orders && orders.length > 0 && (<h1 className="px-6 py-4 md:ml-6 h3-bold"><span>Title :</span> {orders[0].eventTitle}</h1>)
+        
+      }
+      {
+        orders && orders.length > 0 && (<h1 className="px-6 py-4 md:ml-6 "><span>scanner Id :</span> {scannerId}</h1>)
+        
+      }
+      
       <section className="wrapper overflow-x-auto">
-        <table className="w-full border-collapse border-t">
+        {/* <table className="table-auto w-full border-collapse border-t">
           <thead>
             <tr className="p-medium-14 border-b text-grey-500">
               <th className="min-w-[250px] py-3 text-left">Order ID</th>
@@ -60,7 +70,46 @@ const Orders = async ({ searchParams }: SearchParamProps) => {
               </>
             )}
           </tbody>
-        </table>
+        </table> */}
+        <div className="relative overflow-x-auto">
+    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" className="px-6 py-3">
+                   Order ID
+                </th>
+                <th scope="col" className="px-6 py-3">
+                   Buyer
+                </th>
+                <th scope="col" className="px-6 py-3">
+                   Created
+                </th>
+                <th scope="col" className="px-6 py-3">
+                   Amount
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {orders &&
+                      orders.map((row: IOrderItem) => (
+                        <tr
+                          key={row._id}
+                          className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 "
+                          style={{ boxSizing: 'border-box' }}>
+                          <td className="px-6 py-4">{row._id}</td>
+                          
+                          <td className="px-6 py-4">{row.buyer}</td>
+                          <td className="px-6 py-4">
+                            {formatDateTime(row.createdAt).dateTime}
+                          </td>
+                          <td className="px-6 py-4">
+                            {formatPrice(row.totalAmount)}
+                          </td>
+                        </tr>
+            ))}
+        </tbody>
+    </table>
+</div>
       </section>
     </>
   )
