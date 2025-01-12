@@ -1,5 +1,6 @@
 import CheckoutButton from '@/components/shared/CheckoutButton';
 import Collection from '@/components/shared/Collection';
+import EditorTry from '@/components/ui/editorTry';
 import { getEventById, getRelatedEventsByCategory } from '@/lib/actions/event.actions'
 import { formatDateTime } from '@/lib/utils';
 import { SearchParamProps } from '@/types'
@@ -19,8 +20,8 @@ const EventDetails = async ({ params: { id }, searchParams }: SearchParamProps) 
     <section className='wrapper flex-col gap-3'>
       <div className='flex flex-col md:flex-row gap-3'>
         <div className='md:w-1/2'>
-          <div className='rounded-xl flex-col relative h-64 md:h-96 md:w-full'>
-            <Image className='rounded-lg'  src={event.imageUrl} alt="calendar" fill={true} />
+          <div className='rounded-xl flex-col relative h-64 md:h-96 md:w-full md:mt-20'>
+            <Image className='md:pt-4 rounded-md'  src={event.imageUrl} alt="calendar" fill={true} />
           </div>
           <div className='flex justify-between mx-3 my-1'>
             <p className="p-regular-12">{event.category.name}</p>
@@ -50,11 +51,12 @@ const EventDetails = async ({ params: { id }, searchParams }: SearchParamProps) 
         <div className="flex flex-col gap-2 my-3">
             <CheckoutButton event={event} />
             <p className="p-bold-20 text-grey-400">About</p>
-            <p className="p-medium-16 lg:p-regular-18">{event.description}</p>
-            <a className="p-medium-16 lg:p-regular-18 truncate text-blue-400 underline mt-2" href={event.url} target='_blank'>
+            {/* <p className="p-medium-16 lg:p-regular-18">{event.description}</p> */}
+            <EditorTry editorContent={event.description} editable={false}  hideToolbar={true}/>
+            {/* <a className="p-medium-16 lg:p-regular-18 truncate text-blue-400 underline mt-2" href={event.url} target='_blank'>
                {event.url}
 
-            </a>
+            </a> */}
          
           </div>
         </div>

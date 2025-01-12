@@ -42,20 +42,20 @@ export const DropDown = ({value, onchangeHandler}: DropdownProps) => {
     useEffect(()=> {
       const getcategories = async () => {
         const categoryList = await getAllCategory();
-        console.log(categoryList);
         categoryList && setCategories(categoryList as ICategory[]);
       }
       getcategories();
     }, [])
+  //console.log('Value' + value);
   return (
-    <Select onValueChange={onchangeHandler} defaultValue={value}>
-        <SelectTrigger className="w-[180px]">
+    <Select onValueChange={onchangeHandler} defaultValue={value} >
+        <SelectTrigger className="w-[180px] dark:bg-[#121212]">
             <SelectValue placeholder="Category" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className='dark:bg-[#121212] hover:cursor-pointer'>
           {
             categories.length > 0 && categories.map((category) => (
-                <SelectItem key={category._id} value={category._id} className='select-item p-regular-14'>
+                <SelectItem key={category._id} value={category._id} className='select-item p-regular-14 hover:cursor-pointer'>
                     {
                          category.name
                     }
@@ -65,12 +65,11 @@ export const DropDown = ({value, onchangeHandler}: DropdownProps) => {
             )
           }
         <AlertDialog>
-            <AlertDialogTrigger className='p-medium-14 flex w-full rounded-sm py-3 pl-8 text-primary-500 hover:bg-primary-50 focus:text-primary-500'>Add new category</AlertDialogTrigger>
-            <AlertDialogContent className='bg-white'>
+            <AlertDialogTrigger className='p-medium-14 flex w-full rounded-sm py-3 pl-8 text-primary-500'>Add new category</AlertDialogTrigger>
+            <AlertDialogContent className='bg-white dark:bg-[#121212]'>
                 <AlertDialogHeader>
                 <AlertDialogTitle>New Category</AlertDialogTitle>
                 <AlertDialogDescription>
-                    <Input type="text" placeholder='Category name' className='input-field mt-3 ' onChange={(e) => setNewCategory(e.target.value)}/>
                 </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
