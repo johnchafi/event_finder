@@ -71,7 +71,7 @@ export default function Page() {
         <div className="flex flex-col justify-center gap-8">
           <h1 className="h1-bold"><span className="h1-bold text-primary-800"> Host, connect , </span>  celebrate: Your <span className="h1-bold text-primary-800"> events , </span> our platform!</h1>
           <p className="text-gray-400 leading-relaxed">Eventhub simplifies event planning by allowing you to manage guests, sell tickets, coordinate details, and connect seamlessly. It’s the ultimate solution for hassle-free event enjoyment!</p>
-          <Link className="button w-full" href="#events">
+          <Link className="button w-full" href="/explore">
             <MagicButton
               title=" Explorer Now"
               icon={<NavigationIcon className='w-4'/>}
@@ -105,7 +105,7 @@ export default function Page() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           <FeatureCard
             icon={BarChart3}
-            title="Analytics"
+            title="Metrics"
             description="A rich dashboard with advanced analytics from any period of time in a single view."
           />
           <FeatureCard

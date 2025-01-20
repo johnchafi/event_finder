@@ -7,7 +7,7 @@ export function CtaSection() {
     <div className="wrapper mx-auto px-4 py-12">
       <div className="bg-zinc-900/50 rounded-3xl p-12 text-center max-w-4xl mx-auto">
         <h2 className="text-2xl font-semibold  mb-6">
-          Ready to take<span className="text-primary-800">your event</span>
+          Ready to take <span className="text-primary-800">your event</span>
           <br />
           <span className="ext-primary-800">to the next level?</span>
         </h2>

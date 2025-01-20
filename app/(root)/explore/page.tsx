@@ -1,13 +1,5 @@
 import Collection from "@/components/shared/Collection";
-import { Button } from "@/components/ui/button";
-import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 import { getAllEvents } from "@/lib/actions/event.actions";
-import Image from "next/image";
-import Link from "next/link";
-import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
-import MagicButton from "@/components/ui/magicButton";
-import { NavigationIcon } from "lucide-react";
-import {InfiniteCarousel } from "@/components/ui/hero";
 import Search from "@/components/shared/Search";
 import { SearchParamProps } from "@/types";
 export default async function Home({searchParams} : SearchParamProps) {
@@ -73,8 +65,6 @@ const pastEvents = events?.data.filter((event:any) => Date.parse(event.startDate
           totalPages={2}
         />
       </section>
-      
-
     </section>
     </>
     
