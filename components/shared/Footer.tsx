@@ -1,18 +1,52 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import React from 'react'
+import Link from "next/link"
+import { Instagram, Twitter, Linkedin } from "lucide-react"
 
-const Footer = () => {
+ export default function Footer() {
   return (
-    <footer className='border-t-5'>
-      <div className='flex-center wrapper flex flex-between  flex-col gap-4 p-5 text-center sm:flex-row'>
-        <Link href="/">
-        <Image src="/assets/images/logo.svg" width={128} height={38} alt='logo'/>
-        </Link>
-        <p>2024 Eventhub. All right reserved</p>
+    <footer className="wrapper mx-auto px-4 py-12 bg-black">
+      <div className="flex flex-col items-center gap-8">
+        <div className="flex items-center gap-8">
+          <Link
+            href="https://instagram.com"
+            className="text-gray-400 hover:text-primary-800 transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Instagram className="h-6 w-6" />
+            <span className="sr-only">Instagram</span>
+          </Link>
+          <Link
+            href="https://twitter.com"
+            className="text-gray-400 hover:text-primary-800 transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Twitter className="h-6 w-6" />
+            <span className="sr-only">Twitter</span>
+          </Link>
+          <Link
+            href="https://linkedin.com"
+            className="text-gray-400 hover:text-primary-800 transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Linkedin className="h-6 w-6" />
+            <span className="sr-only">LinkedIn</span>
+          </Link>
+        </div>
+
+        <p className="text-gray-400">© 2024 Eventhub</p>
+
+        <div className="flex items-center gap-4 text-gray-400">
+          <Link href="/terms" className="hover:text-primary-800 transition-colors">
+            Terms & Conditions
+          </Link>
+          <span>|</span>
+          <Link href="/privacy" className="hover:text-primary-800 transition-colors">
+            Privacy policy
+          </Link>
+        </div>
       </div>
-      </footer>
+    </footer>
   )
 }
-
-export default Footer

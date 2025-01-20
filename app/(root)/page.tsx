@@ -1,22 +1,36 @@
-import Collection from "@/components/shared/Collection";
-import { Button } from "@/components/ui/button";
-import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
-import { getAllEvents } from "@/lib/actions/event.actions";
-import Image from "next/image";
-import Link from "next/link";
-import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
-import MagicButton from "@/components/ui/magicButton";
-import { NavigationIcon } from "lucide-react";
-import {InfiniteCarousel } from "@/components/ui/hero";
-import Search from "@/components/shared/Search";
-import { SearchParamProps } from "@/types";
-export default async function Home({searchParams} : SearchParamProps) {
-  const page = Number(searchParams?.page) || 1;
-  const searchText = (searchParams?.query as string || '');
-  const category = (searchParams?.category as string || '');
+import Image from "next/image"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { BarChart3, Users, DollarSign, HandCoins, HandshakeIcon, Ticket, NavigationIcon } from "lucide-react"
+import { FeatureCard } from "@/components/ui/feature-card"
+import { FaqSection } from "@/components/ui/faq"
+import {CtaSection} from "@/components/ui/service"
+import MagicButton from "@/components/ui/magicButton"
+import { InfiniteCarousel } from "@/components/ui/hero"
+import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards"
+//import { Footer } from "@/components/footer"
 
+export default function Page() {
 
- const testimonials = [
+  const heroImages = [
+    {
+      image:"/assets/images/audience.jpg",
+    },
+    {
+      image:"/assets/images/concert.jpg",
+    },
+    {
+      image:"/assets/images/drinks.jpg",
+    },
+    {
+      image:"/assets/images/artist.jpg",
+    },
+    {
+      image:"/assets/images/crowd.jpg",
+    },
+   
+  ];
+  const testimonials = [
     {
       image:"/assets/images/test.png",
       hoster: "PCK"
@@ -50,50 +64,13 @@ export default async function Home({searchParams} : SearchParamProps) {
       hoster: "Sabry entertainment"
     },
   ];
-
-  const heroImages = [
-    {
-      image:"/assets/images/audience.jpg",
-    },
-    {
-      image:"/assets/images/concert.jpg",
-    },
-    {
-      image:"/assets/images/drinks.jpg",
-    },
-    {
-      image:"/assets/images/artist.jpg",
-    },
-    {
-      image:"/assets/images/crowd.jpg",
-    },
-   
-  
-  ];
-
-  const events = await getAllEvents({
-    query: searchText,
-    category,
-    page: 1,
-    limit: 6
-
-  });
-const activeEvents = events?.data.filter((event:any) => Date.parse(event.startDateTime) > Date.now())
-    .sort((a:any, b:any) => a.startDateTime - b.startDateTime);
-
-const pastEvents = events?.data.filter((event:any) => Date.parse(event.startDateTime) <= Date.now())
-    .sort((a:any, b:any) => b.startDateTime - a.startDateTime);
-  
-// console.log(activeEvents);
-// console.log(pastEvents);
-
   return (
-    <>
-    <section className="bg-dotted-pattern pattern bg-contain py-5 md:py-10">
-      <div className="wrapper grid grid-cols-1 gap-5 md:grid-cols-2 2xl:gap-0">
+    <div className="min-h-screen bg-black text-white">
+      {/* Hero Section */}
+      <div className="wrapper px-4 grid grid-cols-1 gap-5 md:grid-cols-2 2xl:gap-0">
         <div className="flex flex-col justify-center gap-8">
           <h1 className="h1-bold"><span className="h1-bold text-primary-800"> Host, connect , </span>  celebrate: Your <span className="h1-bold text-primary-800"> events , </span> our platform!</h1>
-          <p className="p-regular-12 md:p-regular-16">Eventhub simplifies event planning by allowing you to manage guests, sell tickets, coordinate details, and connect seamlessly. It’s the ultimate solution for hassle-free event enjoyment!</p>
+          <p className="text-gray-400 leading-relaxed">Eventhub simplifies event planning by allowing you to manage guests, sell tickets, coordinate details, and connect seamlessly. It’s the ultimate solution for hassle-free event enjoyment!</p>
           <Link className="button w-full" href="#events">
             <MagicButton
               title=" Explorer Now"
@@ -101,67 +78,71 @@ const pastEvents = events?.data.filter((event:any) => Date.parse(event.startDate
               position="right"
             />
           </Link>
-
-
         </div>
-        
         <InfiniteCarousel items={heroImages} />
-        {/* <CarouselHero /> */}
-        {/* <Image 
-        src="/assets/images/audience.jpg" alt="hero" width={1000} height={1000} className="max-h[70vh] object-contain object-center 2xl:max-h-[50vh]"
-        /> */}
-
       </div>
-   
-      <section id="events" className="wrapper w-full my-8 flex flex-col gap-8 text-center">
-        <div className="flex w-full flex-col gap-5 md:flex-row">
-          <Search />
-          
-        {/* CategoryFilter */}
+     
 
-        </div>
-        <div className="flex w-full justify-center items-center py-4 rounded-lg bg-slate">
-          <h2 className="h2-bold">
-            ACTIVE <span className="text-primary-800">EVENTS</span>
-          </h2>
-         
-        </div>
-        <Collection 
-          data={activeEvents}
-          emptyTitle="No Events Found"
-          emptyStateSubtext="Come back later"
-          collectionType="All_Events"
-          limit={6}
-          page={1}
-          totalPages={2}
-        />
+      {/* Clients Section */}
+      <div className="wrapper mx-auto px-4 py-20 text-center">
+        <h2 className="text-gray-400 leading-relaxed py-12">Trusted by many <span className="text-primary-800">organizers</span></h2>
+          <InfiniteMovingCards
+              items={testimonials}
+              direction="left"
+              speed="slow"
+          />
+      </div>
 
-      <div className="flex w-full justify-center items-center py-4 rounded-lg bg-slate">
-          <h2 className="h2-bold">
-            PAST <span className="text-primary-800">EVENTS</span>
+      {/* Features Section */}
+      <div className="container mx-auto px-4 py-5">
+        <div className="text-center mb-16 space-y-4 text-gray-400 leading-relaxed">
+          <div className="inline-block px-4 py-2 rounded-full bg-[#F5A524]/10 text-primary-800">Our solution</div>
+          <h2 className="text-2xl font-semibold">
+            key <span className="text-primary-800">features</span>
           </h2>
         </div>
-        <Collection 
-          data={pastEvents}
-          emptyTitle="No Events Found"
-          emptyStateSubtext="Come back later"
-          collectionType="All_Events"
-          limit={6}
-          page={1}
-          totalPages={2}
-        />
 
-      <h2 className="h2-bold">Trusted by many <span className="text-primary-800">organizers</span></h2>
-        <InfiniteMovingCards
-            items={testimonials}
-            direction="left"
-            speed="fast"
-        />
-      </section>
-      
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <FeatureCard
+            icon={BarChart3}
+            title="Analytics"
+            description="A rich dashboard with advanced analytics from any period of time in a single view."
+          />
+          <FeatureCard
+            icon={Users}
+            title="Audience"
+            description="You have access to your customers, with features like bulk mobile messaging."
+          />
+          <FeatureCard
+            icon={DollarSign}
+            title="Sales"
+            description="Stay in control of all transactions being made in your events and organization at large."
+          />
+          <FeatureCard
+            icon={HandCoins}
+            title="Cash Out"
+            description="Cash out your revenue made instantly and anytime!"
+          />
+          <FeatureCard
+            icon={HandshakeIcon}
+            title="Collaboration"
+            description="Organizers page to facilitate advertizing and marketing of your events."
+          />
+          <FeatureCard
+            icon={Ticket}
+            title="Visibility"
+            description="Easily share a link to your events through our explore page."
+          />
+        </div>
+      </div>
 
-    </section>
-    </>
-    
-  );
+      {/* FAQ Section */}
+      <FaqSection />
+
+      {/* CTA Section */}
+      <CtaSection />
+
+    </div>
+  )
 }
+

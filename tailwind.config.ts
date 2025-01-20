@@ -14,30 +14,28 @@ const config: Config = {
   theme: {
   	extend: {
   		colors: {
-			black: {
-				DEFAULT: "#000",
-				100: "#000319",
-				200: "#1e1e1e",
-				300: "rgba(255, 255, 255, 0.125)",
-			  },
-			  primary: {
-				800:"#a78bfa",
-				500: '#624CF5',
-				50: ' #F6F8FD',
-				DEFAULT: '#624CF5',
-				foreground: 'hsl(var(--primary-foreground))',
-			  },
-			  coral: {
-				500: '#15BF59',
-			  },
-	  
-			  grey: {
-				600: '#545454', // Subdued - color name in figma
-				500: '#757575',
-				400: '#AFAFAF', // Disabled - color name in figma
-				50: '#F6F6F6', // White Grey - color name in figma
-			},
-			
+  			black: {
+  				'100': '#000319',
+  				'200': '#1e1e1e',
+  				'300': 'rgba(255, 255, 255, 0.125)',
+  				DEFAULT: '#000'
+  			},
+  			primary: {
+  				'50': ' #F6F8FD',
+  				'500': '#624CF5',
+  				'800': '#a78bfa',
+  				DEFAULT: '#624CF5',
+  				foreground: 'hsl(var(--primary-foreground))'
+  			},
+  			coral: {
+  				'500': '#15BF59'
+  			},
+  			grey: {
+  				'50': '#F6F6F6',
+  				'400': '#AFAFAF',
+  				'500': '#757575',
+  				'600': '#545454'
+  			},
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
@@ -48,7 +46,6 @@ const config: Config = {
   				DEFAULT: 'hsl(var(--popover))',
   				foreground: 'hsl(var(--popover-foreground))'
   			},
-  			
   			secondary: {
   				DEFAULT: 'hsl(var(--secondary))',
   				foreground: 'hsl(var(--secondary-foreground))'
@@ -81,18 +78,34 @@ const config: Config = {
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
-
-		animation: {
-			scroll:
-			  "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
-		},
-		keyframes: {
-			scroll: {
-			  to: {
-				transform: "translate(calc(-50% - 0.5rem))",
-			  },
-			},
-		},
+  		animation: {
+  			scroll: 'scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite',
+  			'accordion-down': 'accordion-down 0.2s ease-out',
+  			'accordion-up': 'accordion-up 0.2s ease-out'
+  		},
+  		keyframes: {
+  			scroll: {
+  				to: {
+  					transform: 'translate(calc(-50% - 0.5rem))'
+  				}
+  			},
+  			'accordion-down': {
+  				from: {
+  					height: '0'
+  				},
+  				to: {
+  					height: 'var(--radix-accordion-content-height)'
+  				}
+  			},
+  			'accordion-up': {
+  				from: {
+  					height: 'var(--radix-accordion-content-height)'
+  				},
+  				to: {
+  					height: '0'
+  				}
+  			}
+  		}
   	}
   },
 //

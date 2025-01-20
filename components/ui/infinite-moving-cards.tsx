@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 export const InfiniteMovingCards = ({
   items,
   direction = "left",
-  speed = "fast",
+  speed = "slow",
   pauseOnHover = false,
   className,
 }: {
@@ -90,20 +90,16 @@ export const InfiniteMovingCards = ({
             className="max-w-full relative rounded-full flex-shrink-0"
             key={idx}
           >
-            <div className="flex justify-center items-center gap-3">
-               <div className="relative w-16 h-16">
-                    <Image
-                      className="rounded-full"
-                        src={item.image}
-                        alt="pic of dog"
-                        fill={true}
-                      />
-                          
-                </div>
-                <h1>
-                  {item.hoster}
-                </h1>
-            </div>
+            <div className="flex items-center gap-3 flex-shrink-0">
+            <Image
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screen%20Shot%202025-01-19%20at%202.46.16%20PM-dMinn46QLlBcgPOfZivqlyh6NuSIEN.png"
+              alt="DJ Marnaud"
+              width={70}
+              height={70}
+              className="rounded-full"
+            />
+            <span>{item.hoster}</span>
+          </div>
         
           </li>
         ))}

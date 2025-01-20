@@ -115,7 +115,7 @@ export const InfiniteCarousel = ({
         className
       )}
     >
-      <div className="w-full text-center font-bold">HOTTEST 🔥 🔥 🔥</div>
+      {/* <div className="w-full text-center font-bold">HOTTEST 🔥 🔥 🔥</div> */}
       <ul
         ref={scrollerRef}
         className={cn(
@@ -137,19 +137,15 @@ export const InfiniteCarousel = ({
                       />
                       {/* <button className="absolute z-50 hidden group-hover:block">Buy Ticket </button> */}
                       
-                      <div className="absolute z-50 hidden group-hover:block">
+                      {/* <div className="absolute z-50 hidden group-hover:block">
                         <MagicButton
                           title="Buy Ticket"
                           icon={<NavigationIcon className='w-4'/>}
                           position="right"
                         />
-                      </div>
-                     
-                          
+                      </div> */}
+                            
                 </div>
-                
-          
-        
           </li>
         ))}
       </ul>
