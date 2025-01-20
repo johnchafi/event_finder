@@ -43,7 +43,7 @@ type EventFormProps = {
 
 }
 
-const EditorTry = dynamic(() => import("@/components/ui/editorTry"), { ssr: false });
+//const EditorTry = dynamic(() => import("@/components/ui/editorTry"), { ssr: false });
 // const Map =  dynamic(() => import("@/components/ui/map"),
 //   { 
 //     ssr: false
