@@ -32,7 +32,7 @@ import { Editor } from "../ui/editor"
 //import EditorTry from "@/components/ui/editorTry"
 import dynamic from "next/dynamic";
 
-import { useLoadScript } from "@react-google-maps/api";
+//import { useLoadScript } from "@react-google-maps/api";
 
  
 type EventFormProps = {
