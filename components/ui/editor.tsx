@@ -71,11 +71,11 @@ import {
   Video,
  
 } from 'lucide-react'
-import {
-  TextAlignCenterIcon,
-  TextAlignLeftIcon,
-  TextAlignRightIcon,
-} from '@radix-ui/react-icons'
+// import {
+//   TextAlignCenterIcon,
+//   TextAlignLeftIcon,
+//   TextAlignRightIcon,
+// } from '@radix-ui/react-icons'
 import { cn } from '@/lib/utils';
 
 interface TipTapProps {
