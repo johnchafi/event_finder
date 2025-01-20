@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { BarChart3, Users, DollarSign, HandCoins, HandshakeIcon, Ticket, NavigationIcon, Marketing } from "lucide-react"
+import { BarChart3, Users, DollarSign, HandCoins, HandshakeIcon, Ticket, NavigationIcon } from "lucide-react"
 import { FeatureCard } from "@/components/ui/feature-card"
 import { FaqSection } from "@/components/ui/faq"
 import {CtaSection} from "@/components/ui/service"

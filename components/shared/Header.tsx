@@ -15,7 +15,7 @@ const Header = () => {
         setTheme(theme === "light" ? "dark" : "light");
     };
   return (
-    <header className='w-full bg-black'>  
+    <header className='w-full bg-black sticky top-0'>  
         <div className='wrapper flex-between'>
             <Link href='/' className='w-36'>
             <Image src="/assets/images/logo.svg" width={128} height={38} alt='Eventhub logo' priority={false} placeholder ="empty"/>

@@ -92,13 +92,13 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
   
     //   // return () => autocomplete.removeListener("place_changed", handlePlaceChanged);
     // }, [isLoaded, loadError]);
-    const Map = useMemo(() => dynamic(
-      () => import('@/components/ui/map'),
-      {
-          loading: () => <p>A map is loading</p>,
-          ssr: false
-      }
-  ), [])
+  //   const Map = useMemo(() => dynamic(
+  //     () => import('@/components/ui/map'),
+  //     {
+  //         loading: () => <p>A map is loading</p>,
+  //         ssr: false
+  //     }
+  // ), [])
   
     const initialValues = event && type === 'Update' ? {
         ...event,
