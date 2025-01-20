@@ -1,5 +1,6 @@
 import CheckoutButton from '@/components/shared/CheckoutButton';
 import Collection from '@/components/shared/Collection';
+import { Editor } from '@/components/ui/editor';
 import EditorTry from '@/components/ui/editorTry';
 import { getEventById, getRelatedEventsByCategory } from '@/lib/actions/event.actions'
 import { formatDateTime } from '@/lib/utils';
@@ -52,7 +53,9 @@ const EventDetails = async ({ params: { id }, searchParams }: SearchParamProps) 
             <CheckoutButton event={event} />
             <p className="p-bold-20 text-grey-400">About</p>
             {/* <p className="p-medium-16 lg:p-regular-18">{event.description}</p> */}
-            <EditorTry editorContent={event.description} editable={false}  hideToolbar={true}/>
+            <Editor editorContent={event.description} editable={false} hideToolBar={true}></Editor>
+
+            {/* <EditorTry editorContent={event.description} editable={false}  hideToolbar={true}/> */}
             {/* <a className="p-medium-16 lg:p-regular-18 truncate text-blue-400 underline mt-2" href={event.url} target='_blank'>
                {event.url}
 

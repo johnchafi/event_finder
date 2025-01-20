@@ -30,7 +30,7 @@ type DropdownProps = {
 export const DropDown = ({value, onchangeHandler}: DropdownProps) => {
     const [categories, setCategories] = useState<ICategory[]>(
         []);
-    const [newCategory, setNewCategory] = useState("");
+    const [newCategory, setNewCategory] = useState(value ? value : '');
     
     const handleAddCategory = () => {
       createCategory({
@@ -46,9 +46,8 @@ export const DropDown = ({value, onchangeHandler}: DropdownProps) => {
       }
       getcategories();
     }, [])
-  //console.log('Value' + value);
   return (
-    <Select onValueChange={onchangeHandler} defaultValue={value} >
+    <Select onValueChange={onchangeHandler} defaultValue={value}>
         <SelectTrigger className="w-[180px] dark:bg-[#121212]">
             <SelectValue placeholder="Category" />
         </SelectTrigger>

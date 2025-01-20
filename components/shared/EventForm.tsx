@@ -18,7 +18,7 @@ import { eventDefaultValues } from "@/constants"
 import { DropDown } from "./DropDown"
 import { Textarea } from "../ui/textarea"
 import { FileUploader } from "./FileUploader"
-import { useState } from "react"
+import { useEffect, useMemo, useState, useRef } from "react"
 import Image from "next/image"
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -32,6 +32,8 @@ import { Editor } from "../ui/editor"
 //import EditorTry from "@/components/ui/editorTry"
 import dynamic from "next/dynamic";
 
+import { useLoadScript } from "@react-google-maps/api";
+
  
 type EventFormProps = {
     userId : string
@@ -42,34 +44,79 @@ type EventFormProps = {
 }
 
 const EditorTry = dynamic(() => import("@/components/ui/editorTry"), { ssr: false });
+// const Map =  dynamic(() => import("@/components/ui/map"),
+//   { 
+//     ssr: false
+//   }
+// )
 
 const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
 
     const [files, setFiles] = useState<File[]>([]);
     const [description, setDescription] = useState(event && type === 'Update' ? event.description ?? "" : "");
+    // const libraries: ("places" | "drawing" | "geometry" | "visualization")[] = ["places"];
+    // const { isLoaded, loadError } = useLoadScript({
+    //   googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY || '',
+    //   libraries,
+    // });
+    // const inputRef = useRef(null);
+    //const [EditorTry, setEditorTry] = useState<any>(null);
+
+    // useEffect(() => {
+    //     setEditorTry(Editor);
+    // }, [])
+    // const Map = useMemo(() => dynamic(
+    //   () => import('@/components/ui/map'),
+    //   { 
+    //     loading: () => <p>A map is loading</p>,
+    //     ssr: false
+    //   }
+    // ), [])
+     // const handleChange = (event) => {
+      //   const {name, value} = event.target;
+      //   setInput((values) => ({ ...values, [name]: value }));
+      // };
+    // useEffect(() => {
+    //   if (!isLoaded || loadError) return;
+  
+    //   const options = {
+    //     componentRestrictions: { country: "USA" },
+    //     fields: ["address_components", "geometry"],
+    //   };
+  
+     
+    //     const autocomplete = new google.maps.places.Autocomplete("1125 rue" as unknown as HTMLInputElement, options);
+    //     console.log(autocomplete);
+    //     //autocomplete.addListener("place_changed", () => console.log(autocomplete));
+      
+  
+    //   // return () => autocomplete.removeListener("place_changed", handlePlaceChanged);
+    // }, [isLoaded, loadError]);
+    const Map = useMemo(() => dynamic(
+      () => import('@/components/ui/map'),
+      {
+          loading: () => <p>A map is loading</p>,
+          ssr: false
+      }
+  ), [])
   
     const initialValues = event && type === 'Update' ? {
         ...event,
         startDateTime: new Date(event.startDateTime),
         endDateTime: new Date(event.endDateTime),
-       //categoryID: event?.category.name,
+        categoryId: event?.category._id,
     } :eventDefaultValues;
-    //setDescription(event && type === 'Update' ? event.description ?? "" : "");
     const router = useRouter();
     const { startUpload } = useUploadThing('imageUploader')
     const form = useForm<z.infer<typeof EventFormSchema>>({
         resolver: zodResolver(EventFormSchema),
         defaultValues: initialValues,
       })
-
-      //console.log(initialValues)
      
       // 2. Define a submit handler.
       async function onSubmit(values: z.infer<typeof EventFormSchema>) {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
-        console.log("Entered in submit");
-        //console.log({...values});
         let uploadedImageUrl = values.imageUrl;
         if(files.length > 0){
             const uploadedImages = await startUpload(files);
@@ -82,7 +129,7 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
         if(type === 'Create'){
             try{
                 const newEvent = await createEvent({
-                    event: {... values, imageUrl: uploadedImageUrl},
+                    event: {... values, imageUrl: uploadedImageUrl, description},
                     userId : userId,
                     path:'profile',
                 })
@@ -119,6 +166,20 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
         }
 
       }
+      // const handleChange = (event) => {
+      //   const {name, value} = event.target;
+      //   setInput((values) => ({ ...values, [name]: value }));
+      // };
+      // const handlePlaceChanged = async(address) => {
+      //   if (!isLoaded) return;
+      //   const place = address.getPlace()
+    
+      //   if (!place || !place.geometry) {
+      //     setInput({});
+      //     return;
+      //   }
+      //   formData(place);
+      // };
   return (
     <Form {...form}>
     <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5">
@@ -149,7 +210,7 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
            />
         </div>
 
-        <div className="w-full flex flex-col gap-5 md:flex-row md:justify-between">
+        <div className="w-full flex flex-col gap-5 md:justify-between">
         {/* <p>Description</p> */}
         {/* <FormField
             control={form.control}
@@ -163,13 +224,8 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
             </FormItem>
             )}
          /> */}
-         <div className="w-full">
-            {/* <Editor editorContent={description} onChange={setDescription}/> */}
-            <EditorTry editorContent={description} onChange={setDescription} editable={true} hideToolbar={false}/>
-         </div>
-        
-        
-        <FormField
+
+         <FormField
             control={form.control}
             name="imageUrl"
             render={({ field }) => (
@@ -181,30 +237,19 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
                />
                 </FormControl>
                 <FormMessage />
-            </FormItem>
+          </FormItem>
             )}
            />
+         <div className="w-full flex flex-col gap-6">
+             <p>Description</p>
+            <Editor editorContent={description} onChange={setDescription} editable={true} hideToolBar={false}/>
+            {/* <EditorTry editorContent={description} onChange={setDescription} editable={true} hideToolbar={false}/> */}
+         </div>
+        
+        
+       
         </div>
    
-   
-        <div className="flex flex-col gap-5 md:flex-row">
-            <FormField
-                control={form.control}
-                name="location"
-                render={({ field }) => (
-                <FormItem className="w-full">
-                    <FormControl>
-                    <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-[#121212] px-4 py-2">
-                        <Image src="/assets/icons/location-grey.svg" height={24} width={24} alt="location"/>
-                        <Input placeholder="Event location or online" {...field} className="input-field"/>
-                    </div>
-                    
-                    </FormControl>
-                    <FormMessage />
-                </FormItem>
-                )}
-            />
-        </div>
         <div className="flex flex-col gap-5 md:flex-row">
             <FormField
                 control={form.control}
@@ -297,7 +342,10 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
                 </FormItem>
               )}
             />  
-             <FormField
+            
+        </div>
+        <div className="flex flex-col gap-5 md:flex-row">
+          <FormField
               control={form.control}
               name="url"
               render={({ field }) => (
@@ -319,6 +367,27 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
                 </FormItem>
               )}
             /> 
+        </div>
+        <div className="flex flex-col gap-5 md:flex-row">
+            <FormField
+                control={form.control}
+                name="location"
+                render={({ field }) => (
+                <FormItem className="w-full">
+                    <FormControl>
+                    <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-[#121212] px-4 py-2">
+                        <Image src="/assets/icons/location-grey.svg" height={24} width={24} alt="location"/>
+                        <Input placeholder="Event location or online" {...field} className="input-field"/>
+                        {/* <input {...field} ref={inputRef} placeholder="Event location or online" className="input-field"/> */}
+                    </div>
+                    
+                    </FormControl>
+                    <FormMessage />
+                </FormItem>
+                )}
+            />
+
+            {/* <Map position={[51.505, -0.09]} zoom={13} /> */}
         </div>
       <Button 
       type="submit"

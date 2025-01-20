@@ -1,7 +1,10 @@
 
+'use client';
 import React from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
+import ImageResize from 'tiptap-extension-resize-image';
+import Underline from '@tiptap/extension-underline'
 
 import BulletList from "@tiptap/extension-bullet-list";
 
@@ -10,30 +13,95 @@ import ListItem from "@tiptap/extension-list-item";
 import OrderedList from "@tiptap/extension-ordered-list";
 
 import Heading from "@tiptap/extension-heading";
+import Image from '@tiptap/extension-image'
+import Link from '@tiptap/extension-link'
 
-import Image from "next/image";
+//import Image from "next/image";
+import {
+  Bold,
+  BookMarked,
+  ChevronDown,
+  ChevronUp,
+  ChevronsUpDown,
+  Clipboard,
+  Copy,
+  CropIcon,
+  Eraser,
+  Eye,
+  FlipHorizontal,
+  FlipVertical,
+  Frame,
+  GripVertical,
+  Heading1,
+  Heading2,
+  Heading3,
+  Heading4,
+  Heading5,
+  Heading6,
+  ImageUp,
+  IndentDecrease,
+  IndentIncrease,
+  Italic,
+  ItalicIcon,
+  LinkIcon as LinkIcon,
+  List,
+  ListOrdered,
+  ListTodo,
+  LoaderCircle,
+  Maximize,
+  Minimize,
+  Minus,
+  PaintRoller,
+  PanelLeft,
+  PanelRight,
+  Paperclip,
+  Pencil,
+  Plus,
+  Quote,
+  Redo2,
+  Replace,
+  SmilePlus,
+  SmilePlusIcon,
+  Sparkles,
+  Strikethrough,
+  Type,
+  UnderlineIcon as UnderlineIcon,
+  Undo2,
+  Unlink,
+  Video,
+ 
+} from 'lucide-react'
+import {
+  TextAlignCenterIcon,
+  TextAlignLeftIcon,
+  TextAlignRightIcon,
+} from '@radix-ui/react-icons'
+import { cn } from '@/lib/utils';
 
 interface TipTapProps {
     editorContent: string;
-    onChange: (content: string) => void;
+    onChange ?: (content: string) => void;
+    editable : boolean;
+    hideToolBar: boolean;
   }
 
-export const Editor = ({ editorContent, onChange }: TipTapProps) => {
+export const Editor = ({ editorContent, onChange, editable, hideToolBar }: TipTapProps) => {
     const editor = useEditor({
-
         extensions: [
     
           StarterKit,
-    
+          Underline,
+          ImageResize,
           ListItem,
-    
+          Image,
+          Link,
           Heading.configure({
     
             HTMLAttributes: {
     
               class: "text-xl font-bold capitalize",
     
-              levels: [2],
+              levels: [1,2],
     
             },
     
@@ -64,7 +132,6 @@ export const Editor = ({ editorContent, onChange }: TipTapProps) => {
         immediatelyRender: false,
     
         editorProps: {
-    
           attributes: {
     
             class:
@@ -79,22 +146,38 @@ export const Editor = ({ editorContent, onChange }: TipTapProps) => {
     
         onUpdate: ({ editor }) => {
     
-          onChange(editor.getHTML());
+          onChange && onChange(editor.getHTML());
     
         },
     
-      });
+    });
+  editor?.setEditable(editable);
+  const addImage = () => {
+      let  url = window.prompt('URL')
+      url = url ? url + '/200x200' : '';
+      // const imageAttributes: any = {
+      //   src: url,
+      //   alt: '', 
+      //   title: '', 
+      //   width: "400", 
+      //   height: "100", 
+      //   style: `float: 'center' || 'none'}`,
+      // }
+      if (url) {
+        editor?.chain().focus().setImage({src:url}).run();
+      }
+  }
     
-      if (!editor) {
+  if (!editor) {
     
         return null;
     
-      }
-    
+  }
+   
   return (
 
-    <div className="flex flex-col justify-stretch min-h-[200px] border rounded border-b-0" >
-        <div className="flex items-center gap-2 mb-2">
+    <div className="flex flex-col justify-stretch min-h-[200px] border rounded border-b-0 border-gray-700" >
+      <div className={cn("flex items-center gap-2 mb-2", hideToolBar && 'hidden')}>  
         <button
 
             type="button"
@@ -106,7 +189,7 @@ export const Editor = ({ editorContent, onChange }: TipTapProps) => {
             }`}
             title="Bold (Ctrl+B)"
         >
-            <b>B</b>
+            <Bold />
         </button>
 
         <button
@@ -119,38 +202,108 @@ export const Editor = ({ editorContent, onChange }: TipTapProps) => {
             }`}
             title="Italic (Ctrl+I)"
             >
-            <b>I</b>
+            <ItalicIcon />
         </button>
 
         <button
             type="button"
-
             onClick={() => editor.chain().focus().toggleHeading({level:1}).run()}
-
             className={`p-2 rounded ${
             editor.isActive("H1") ? "bg-gray-200" : ""
             }`}
             title="H1 (Ctrl+H)"
             >
-            <b>H1</b>
+            <Heading1 />
         </button>
 
         <button
             type="button"
 
-            onClick={() => editor.chain().focus().toggleItalic().run()}
+            onClick={() => editor.chain().focus().toggleHeading({level:2}).run()}
+
+            className={`p-2 rounded ${
+            editor.isActive("H2") ? "bg-gray-200" : ""
+            }`}
+            title="H2 (Ctrl+H)"
+            >
+            <Heading2 />
+        </button>
+        <button
+            type="button"
+
+            onClick={() => editor.chain().focus().toggleUnderline().run()}
+
+            className={`p-2 rounded ${
+            editor.isActive("Underline") ? "bg-gray-200" : ""
+            }`}
+            title="Underline (Ctrl+H)"
+            >
+            <UnderlineIcon />
+        </button>
+        <button
+            type="button"
+
+            onClick={() => editor.chain().focus().toggleBulletList().run()}
 
             className={`p-2 rounded ${
             editor.isActive("H1") ? "bg-gray-200" : ""
             }`}
-            title="H1 (Ctrl+H)"
+            title="Bullet List (Ctrl+H)"
             >
-            <b>H1</b>
+            <List />
         </button>
+        <button
+            type="button"
+
+            onClick={() => editor.chain().focus().toggleOrderedList().run()}
+
+            className={`p-2 rounded ${
+            editor.isActive("H1") ? "bg-gray-200" : ""
+            }`}
+            title="Ordered List (Ctrl+H)"
+            >
+            <ListOrdered />
+        </button>
+        <button
+            type="button"
+
+            onClick={() => editor.chain().focus().toggleLink({href:"Yola"}).run()}
+
+            className={`p-2 rounded ${
+            editor.isActive("H1") ? "bg-gray-200" : ""
+            }`}
+            title="Link (Ctrl+H)"
+            >
+            <LinkIcon />
+        </button>
+        <button
+            type="button"
+
+            onClick={addImage}
+
+            className={`p-2 rounded ${
+            editor.isActive("H1") ? "bg-gray-200" : ""
+            }`}
+            title="Image (Ctrl+H)"
+            >
+            <ImageUp />
+        </button>
+        {/* <button
+            type="button"
+
+            onClick={() => editor.chain().focus().setIframe({ src: 'iframe-src', service: 'iframe-service' }).run()}
+
+            className={`p-2 rounded ${
+            editor.isActive("H1") ? "bg-gray-200" : ""
+            }`}
+            title="Video (Ctrl+H)"
+            >
+            <Video />
+        </button> */}
             
 
-        </div>
-        <EditorContent editor={editor} suppressHydrationWarning/>
+      </div>
+        <EditorContent editor={editor} className=''  />
     </div>
     
   )

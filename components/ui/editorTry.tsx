@@ -77,10 +77,7 @@ const extensions = [
     placeholder: {
       showOnlyCurrent: true,
     },
-    characterCount: {
-      limit: 50_000,
-
-    },
+   
   }),
 
   FontFamily,
@@ -152,7 +149,7 @@ function EditorTry({ editorContent, onChange, editable , hideToolbar}: TipTapPro
 
   return (
     <main
-      className='h-96 overflow-y-auto border border-gray-500 rounded-md'
+      className='h-96 overflow-y-auto '
     >
       <div
         style={{
@@ -172,7 +169,7 @@ function EditorTry({ editorContent, onChange, editable , hideToolbar}: TipTapPro
           hideToolbar={hideToolbar}
           hideBubble={true}
           removeDefaultWrapper={true}
-          contentClass={"-ml-16"}
+          contentClass={"-ml-16 border border-red-500"}
           maxHeight={500}
           
         />
