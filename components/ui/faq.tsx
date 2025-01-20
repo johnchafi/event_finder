@@ -12,9 +12,14 @@ const faqs = [
       "You can browse events through our explore page, use search filters, or check out featured events on our platform.",
   },
   {
-    question: "How to get started?",
-    answer: "Click the Get Started button on this page or reach out to us via email: team@sinc.today",
+    question: "What if i have a problem?",
+    answer: "Consult our AI chat or reach out to us via email: johnchafi@gmail.com",
   },
+  {
+    question: "How can i create my advertizing webpage?",
+    answer: "Click on you Icon and follow the steps to create your advertizing page.",
+  },
+  
 ]
 
 export function FaqSection() {

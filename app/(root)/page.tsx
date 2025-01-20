@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { BarChart3, Users, DollarSign, HandCoins, HandshakeIcon, Ticket, NavigationIcon } from "lucide-react"
+import { BarChart3, Users, DollarSign, HandCoins, HandshakeIcon, Ticket, NavigationIcon, Marketing } from "lucide-react"
 import { FeatureCard } from "@/components/ui/feature-card"
 import { FaqSection } from "@/components/ui/faq"
 import {CtaSection} from "@/components/ui/service"
@@ -110,22 +110,22 @@ export default function Page() {
           />
           <FeatureCard
             icon={Users}
-            title="Audience"
-            description="You have access to your customers, with features like bulk mobile messaging."
+            title="Clients"
+            description="You have access to your customers. You can manage them and their data."
           />
           <FeatureCard
             icon={DollarSign}
             title="Sales"
-            description="Stay in control of all transactions being made in your events and organization at large."
+            description="Stay in control of all transactions being made in your events and organization."
           />
           <FeatureCard
             icon={HandCoins}
             title="Cash Out"
-            description="Cash out your revenue made instantly and anytime!"
+            description="Cash out your revenue made anytime!"
           />
           <FeatureCard
             icon={HandshakeIcon}
-            title="Collaboration"
+            title="Marketing"
             description="Organizers page to facilitate advertizing and marketing of your events."
           />
           <FeatureCard
