@@ -27,7 +27,7 @@ import { useUploadThing } from "@/lib/uploadthings"
 import { createEvent, updateEvent } from "@/lib/actions/event.actions"
 import { useRouter } from "next/navigation"
 import { IEvent } from "@/lib/database/models/event.model"
-import { Edit } from "lucide-react"
+//import { Edit } from "lucide-react"
 import { Editor } from "../ui/editor"
 //import EditorTry from "@/components/ui/editorTry"
 import dynamic from "next/dynamic";
