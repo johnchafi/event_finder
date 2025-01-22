@@ -91,17 +91,29 @@
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { ArrowLeft, Hash, Share2 } from "lucide-react"
+import { ArrowLeft, Hash, Share2, Calendar, Ticket, NavigationIcon } from "lucide-react"
+import { SearchParamProps } from '@/types'
+import { getEventById } from "@/lib/actions/event.actions"
+import { formatDateTime } from "@/lib/utils"
+import Link from "@/node_modules/next/link"
+import MagicButton from "@/components/ui/magicButton"
+import CheckoutButton from "@/components/shared/CheckoutButton"
 
-export default function DanceClass() {
+export default async function EventDetails({ params: { id }, searchParams }: SearchParamProps) {
+  const event = await getEventById(id);
+  const {organizer} = event;
+ console.log(event);
   return (
-    <div className="min-h-screen bg-zinc-900 text-white">
+    <section className="wrapper min-h-screen bg-black text-white">
       <div className="mx-auto max-w-7xl px-4 py-6">
         {/* Back Button */}
-        <Button variant="ghost" className="mb-6">
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back
-        </Button>
+        <Link href="/explore">
+          <Button variant="ghost" className="mb-6 bg-[#A78BFA]/30">
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back
+          </Button>
+        </Link>
+        
 
         {/* Main Content Grid */}
         <div className="grid gap-6 lg:grid-cols-2">
@@ -110,7 +122,7 @@ export default function DanceClass() {
             {/* Banner Image */}
             <div className="relative aspect-[16/9] overflow-hidden rounded-lg">
               <Image
-                src={`https://hebbkx1anhila5yf.public.blob.vercel-storage.com/try2-uR1EOOZX6rGbGoErdnmbCWTBG6M0Vp.png`}
+                src={event.imageUrl}
                 alt="Afro Fusion Dance Class"
                 fill
                 className="object-cover"
@@ -122,12 +134,9 @@ export default function DanceClass() {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <span className="rounded-full bg-purple-900 p-2">🎭</span>
-                <span className="text-sm">Arts & Culture</span>
+                <span className="text-sm">{event.category.name}</span>
               </div>
               <div className="flex space-x-4">
-                <Button variant="ghost" size="icon">
-                  <Hash className="h-4 w-4" />
-                </Button>
                 <Button variant="ghost" size="icon">
                   <Share2 className="h-4 w-4" />
                 </Button>
@@ -135,34 +144,35 @@ export default function DanceClass() {
             </div>
 
             {/* Title */}
-            <h1 className="text-4xl font-bold">Afro Fusion Dance Class</h1>
+            <h1 className="text-4xl font-bold">{event.title}</h1>
 
             {/* Organizer */}
             <div className="flex items-center space-x-3">
-              <div className="h-10 w-10 overflow-hidden rounded-full bg-zinc-800">
-                <div className="h-full w-full bg-zinc-700" />
+              <div className=" flex items-center h-10 w-10 overflow-hidden rounded-full bg-zinc-800">
+              <span className="rounded-full bg-purple-900 p-2">🎭</span>
               </div>
               <div>
                 <p className="text-sm text-zinc-400">By</p>
-                <p className="text-orange-500">@manzimbaya</p>
+                <p className="text-primary-800">{organizer.lastName}</p>
               </div>
             </div>
 
             {/* Date & Time */}
             <div className="flex items-start space-x-4">
-              <div className="rounded-lg bg-zinc-800 p-3 text-center">
-                <div className="text-sm text-zinc-400">JAN</div>
-                <div className="text-2xl font-bold">21</div>
+              <div className="rounded-lg bg-[#A78BFA]/30 p-3 text-center">
+                <Calendar />
               </div>
               <div>
-                <p className="font-semibold">Tuesday, 21st</p>
-                <p className="text-zinc-400">11:30 AM - 13:00 PM</p>
+              <p className="text-sm">{formatDateTime(event.startDateTime).dateTime}</p>
+              <p className="text-sm text-center">To</p>
+              <p className="text-sm">{formatDateTime(event.endDateTime).dateTime}</p>
+                
               </div>
             </div>
 
             {/* Location */}
             <div className="rounded-lg bg-zinc-800 p-4">
-              <h3 className="font-semibold">The Pink House Kigali</h3>
+              <h3 className="font-semibold pb-4">{event.location}</h3>
               <p className="text-sm text-zinc-400">View</p>
             </div>
           </div>
@@ -178,31 +188,23 @@ export default function DanceClass() {
                 <div className="mb-4 rounded-lg bg-zinc-700/50 p-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
-                      <span className="text-orange-500">🎟️</span>
+                      <div className="h-12 w-12 bg-[#A78BFA]/40 flex items-center justify-center rounded-xl">
+                      <Ticket className="h-8 w-8"/>
+
+                      </div>
+                     
                       <div>
-                        <p className="font-semibold">Class fee</p>
-                        <p className="text-sm text-zinc-400">12,000 RWF</p>
+                        <p className="font-semibold">Price</p>
+                        <p className="text-sm text-zinc-100">{event.price} $</p>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Monthly Subscription */}
-                <div className="mb-6 rounded-lg bg-zinc-700/50 p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <span className="text-orange-500">🎟️</span>
-                      <div>
-                        <p className="font-semibold">Monthly subscription</p>
-                        <p className="text-sm text-zinc-400">40,000 RWF</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                {/* <p className="mb-4 text-sm text-zinc-400">Questions about ticket? Contact the organizer.</p> */}
 
-                <p className="mb-4 text-sm text-zinc-400">Questions about ticket? Contact the organizer.</p>
-
-                <Button className="w-full bg-orange-500 hover:bg-orange-600">Continue</Button>
+                {/* <Button className="w-full bg-orange-500 hover:bg-orange-600">Continue</Button> */}
+                <CheckoutButton event={event} />
               </CardContent>
             </Card>
 
@@ -210,11 +212,10 @@ export default function DanceClass() {
             <Card className="bg-zinc-800 border-zinc-700">
               <CardContent className="p-6">
                 <h2 className="mb-4 text-xl font-semibold">About</h2>
-                <p className="text-zinc-400">
-                  Afro Fusion Dance Class with Manzi Mbaya Every Tuesday | 6:30 PM – 8:00 PM Join Rwandan dance
-                  sensation and choreographer Manzi for an exhilarating Afro Fusion dance class every Tuesday. Fusing
-                  traditional African rhythms with contemporary urban moves, this class is designed for dancers of all
-                  levels seeking to expand their artistic expression and deepen their connection to African culture.
+                <p className="text-zinc-400 ">
+                 {
+                  event.description
+                 }
                 </p>
               </CardContent>
             </Card>
@@ -229,6 +230,6 @@ export default function DanceClass() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   )
 }
