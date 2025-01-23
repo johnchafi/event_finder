@@ -24,7 +24,7 @@ import {
         <LinkedinShareButton url={'http://localhost:3000'} >
             <LinkedinIcon size={32} round />
         </LinkedinShareButton>
-        <EmailShareButton>
+        <EmailShareButton url={'http://localhost:3000'} >
             <EmailIcon size={32} round />
         </EmailShareButton>
   </div>
