@@ -42,6 +42,7 @@
     "mongoose": "^8.6.2",
     "next": "14.2.9",
     "next-qrcode": "^2.5.1",
+    "next-share": "^0.27.0",
     "next-themes": "^0.3.0",
     "qrcode": "^1.5.4",
     "qrcode.react": "^4.1.0",
