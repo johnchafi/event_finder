@@ -31,6 +31,7 @@ import { IEvent } from "@/lib/database/models/event.model"
 import { Editor } from "../ui/editor"
 //import EditorTry from "@/components/ui/editorTry"
 import dynamic from "next/dynamic";
+import { Card } from "../ui/card"
 
 //import { useLoadScript } from "@react-google-maps/api";
 
@@ -242,8 +243,10 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
            />
          <div className="w-full flex flex-col gap-6">
              <p>Description</p>
+            <Card className="bg-zinc-800 border-zinc-700">
             <Editor editorContent={description} onChange={setDescription} editable={true} hideToolBar={false}/>
-            {/* <EditorTry editorContent={description} onChange={setDescription} editable={true} hideToolbar={false}/> */}
+              {/* <h2 className="mb-4 text-xl font-semibold">Yola</h2> */}
+          </Card>
          </div>
         
         

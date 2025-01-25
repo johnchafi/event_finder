@@ -176,8 +176,8 @@ export const Editor = ({ editorContent, onChange, editable, hideToolBar }: TipTa
    
   return (
 
-    <div className="flex flex-col justify-stretch min-h-[200px] border rounded border-b-0 border-gray-700" >
-      <div className={cn("flex items-center gap-2 mb-2", hideToolBar && 'hidden')}>  
+    <div className="flex flex-col  min-h-[200px] items-center justify-center" >
+      <div className={cn("flex items-center md:gap-2 gap-1 mb-2", hideToolBar && 'hidden')}>  
         <button
 
             type="button"
@@ -288,22 +288,8 @@ export const Editor = ({ editorContent, onChange, editable, hideToolBar }: TipTa
             >
             <ImageUp />
         </button>
-        {/* <button
-            type="button"
-
-            onClick={() => editor.chain().focus().setIframe({ src: 'iframe-src', service: 'iframe-service' }).run()}
-
-            className={`p-2 rounded ${
-            editor.isActive("H1") ? "bg-gray-200" : ""
-            }`}
-            title="Video (Ctrl+H)"
-            >
-            <Video />
-        </button> */}
-            
-
       </div>
-        <EditorContent editor={editor} className=''  />
+        <EditorContent editor={editor} className='md:max-w-full max-w-72'/>
     </div>
     
   )

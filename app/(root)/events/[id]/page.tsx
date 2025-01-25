@@ -104,6 +104,7 @@ import ShareButtons from "@/components/ui/shareButtons"
 export default async function EventDetails({ params: { id }, searchParams }: SearchParamProps) {
   const event = await getEventById(id);
   const {organizer} = event;
+
   return (
     <section className="wrapper min-h-screen w-full bg-black text-white">
         {/* Back Button */}
@@ -156,10 +157,7 @@ export default async function EventDetails({ params: { id }, searchParams }: Sea
               <div className=" flex items-center h-10 w-10 overflow-hidden rounded-full bg-zinc-800">
               <span className="rounded-full bg-purple-900 p-2">🎭</span>
               </div>
-              <div>
-                <p className="text-sm text-zinc-400">By</p>
-                <p className="text-primary-800">{organizer.lastName}</p>
-              </div>
+              <p >By <span className="text-primary-800">{organizer.lastName}</span></p>
             </div>
 
             {/* Date & Time */}
@@ -169,7 +167,7 @@ export default async function EventDetails({ params: { id }, searchParams }: Sea
               </div>
               <div>
               <p className="text-sm">{formatDateTime(event.startDateTime).dateTime}</p>
-              <p className="text-sm text-center">To</p>
+              <p className="text-sm text-center text-gray-400">To</p>
               <p className="text-sm">{formatDateTime(event.endDateTime).dateTime}</p>
                 
               </div>
@@ -181,10 +179,14 @@ export default async function EventDetails({ params: { id }, searchParams }: Sea
               <p className="text-sm text-zinc-400">View</p>
             </div>
           </div>
-
+          {/* <Card className="bg-zinc-800 border-zinc-700"> */}
+              {/* <Editor /> */}
+              {/* <h2 className="mb-4 text-xl font-semibold">Yola</h2> */}
+          {/* </Card> */}
           {/* Right Column */}
-          <div className="space-y-6 bg-green-300">
+          <div className="space-y-6">
             {/* Tickets Section */}
+            
              <Card className="bg-zinc-800 border-zinc-700">
               <CardContent className="p-6">
                 <h2 className="mb-4 text-xl font-semibold">Tickets</h2>
@@ -206,20 +208,12 @@ export default async function EventDetails({ params: { id }, searchParams }: Sea
             </Card> 
 
             {/* About Section */}
-            {/* <Card className="bg-zinc-800 border-zinc-700">
+            <Card className="bg-zinc-800 border-zinc-700">
               <CardContent className="p-6">
-                <h2 className="mb-4 text-xl font-semibold">About</h2>
-                <p className="text-zinc-400 whitespace-normal break-words overflow-y-auto">
-                  Holla
-
-             
-                </p>
-              </CardContent>
-            </Card> */}
-                  {/* {event.description}  */}
-                {/* <Editor editorContent={event.description} editable={false} hideToolBar={true}></Editor> */}
-
-            {/* Location Section */}
+                <Editor editorContent={event.description} editable={false} hideToolBar={true}></Editor> 
+              </CardContent>  
+            </Card>
+            
             <Card className="bg-zinc-800 border-zinc-700">
               <CardContent className="p-6">
                 <h2 className="mb-4 text-xl font-semibold">Location</h2>
