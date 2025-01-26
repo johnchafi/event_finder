@@ -177,7 +177,7 @@ export const Editor = ({ editorContent, onChange, editable, hideToolBar }: TipTa
   return (
 
     <div className="flex flex-col  min-h-[200px] items-center justify-center" >
-      <div className={cn("flex items-center md:gap-2 gap-1 mb-2", hideToolBar && 'hidden')}>  
+      <div className={cn("flex items-center md:gap-2 my-2 gap-1 mb-2", hideToolBar && 'hidden')}>  
         <button
 
             type="button"
@@ -185,7 +185,7 @@ export const Editor = ({ editorContent, onChange, editable, hideToolBar }: TipTa
             onClick={() => editor.chain().focus().toggleBold().run()}
 
             className={`p-2 rounded ${
-            editor.isActive("bold") ? "bg-gray-200" : ""
+            editor.isActive("bold") ? "bg-[#A78BFA]" : ""
             }`}
             title="Bold (Ctrl+B)"
         >
@@ -198,7 +198,7 @@ export const Editor = ({ editorContent, onChange, editable, hideToolBar }: TipTa
             onClick={() => editor.chain().focus().toggleItalic().run()}
 
             className={`p-2 rounded ${
-            editor.isActive("italic") ? "bg-gray-200" : ""
+            editor.isActive("italic") ? "bg-[#A78BFA]" : ""
             }`}
             title="Italic (Ctrl+I)"
             >
@@ -209,7 +209,7 @@ export const Editor = ({ editorContent, onChange, editable, hideToolBar }: TipTa
             type="button"
             onClick={() => editor.chain().focus().toggleHeading({level:1}).run()}
             className={`p-2 rounded ${
-            editor.isActive("H1") ? "bg-gray-200" : ""
+            editor.isActive("H1") ? "bg-[#A78BFA]" : ""
             }`}
             title="H1 (Ctrl+H)"
             >
@@ -222,7 +222,7 @@ export const Editor = ({ editorContent, onChange, editable, hideToolBar }: TipTa
             onClick={() => editor.chain().focus().toggleHeading({level:2}).run()}
 
             className={`p-2 rounded ${
-            editor.isActive("H2") ? "bg-gray-200" : ""
+            editor.isActive("H2") ? "bg-[#A78BFA]" : ""
             }`}
             title="H2 (Ctrl+H)"
             >
@@ -234,7 +234,7 @@ export const Editor = ({ editorContent, onChange, editable, hideToolBar }: TipTa
             onClick={() => editor.chain().focus().toggleUnderline().run()}
 
             className={`p-2 rounded ${
-            editor.isActive("Underline") ? "bg-gray-200" : ""
+            editor.isActive("Underline") ? "bg-[#A78BFA]" : ""
             }`}
             title="Underline (Ctrl+H)"
             >
@@ -246,7 +246,7 @@ export const Editor = ({ editorContent, onChange, editable, hideToolBar }: TipTa
             onClick={() => editor.chain().focus().toggleBulletList().run()}
 
             className={`p-2 rounded ${
-            editor.isActive("H1") ? "bg-gray-200" : ""
+            editor.isActive("H1") ? "bg-[#A78BFA]" : ""
             }`}
             title="Bullet List (Ctrl+H)"
             >
@@ -258,7 +258,7 @@ export const Editor = ({ editorContent, onChange, editable, hideToolBar }: TipTa
             onClick={() => editor.chain().focus().toggleOrderedList().run()}
 
             className={`p-2 rounded ${
-            editor.isActive("H1") ? "bg-gray-200" : ""
+            editor.isActive("H1") ? "bg-[#A78BFA]" : ""
             }`}
             title="Ordered List (Ctrl+H)"
             >
@@ -270,7 +270,7 @@ export const Editor = ({ editorContent, onChange, editable, hideToolBar }: TipTa
             onClick={() => editor.chain().focus().toggleLink({href:"Yola"}).run()}
 
             className={`p-2 rounded ${
-            editor.isActive("H1") ? "bg-gray-200" : ""
+            editor.isActive("H1") ? "bg-[#A78BFA]" : ""
             }`}
             title="Link (Ctrl+H)"
             >
@@ -282,14 +282,14 @@ export const Editor = ({ editorContent, onChange, editable, hideToolBar }: TipTa
             onClick={addImage}
 
             className={`p-2 rounded ${
-            editor.isActive("H1") ? "bg-gray-200" : ""
+            editor.isActive("H1") ? "bg-[#A78BFA]" : ""
             }`}
             title="Image (Ctrl+H)"
             >
             <ImageUp />
         </button>
       </div>
-        <EditorContent editor={editor} className='md:max-w-full max-w-72'/>
+        <EditorContent editor={editor} className='md:max-w-full w-full max-w-72'/>
     </div>
     
   )

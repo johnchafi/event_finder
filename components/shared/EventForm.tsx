@@ -32,6 +32,7 @@ import { Editor } from "../ui/editor"
 //import EditorTry from "@/components/ui/editorTry"
 import dynamic from "next/dynamic";
 import { Card } from "../ui/card"
+import { Calendar,DollarSign, Link, MapPin} from "lucide-react"
 
 //import { useLoadScript } from "@react-google-maps/api";
 
@@ -183,7 +184,7 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
       // };
   return (
     <Form {...form}>
-    <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5">
+    <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 md:wrapper">
         <div className="flex flex-col gap-5 md:flex-row">
             <FormField
             control={form.control}
@@ -191,7 +192,7 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
             render={({ field }) => (
             <FormItem className="w-full">
                 <FormControl>
-                <Input placeholder="Event title" {...field} className="input-field"/>
+                <Input placeholder="Event title" {...field} className="p-regular-16 border-0 bg-[#121212] outline-offset-0 focus:border focus:border-primary-800 focus-visible:ring-0 focus-visible:ring-offset-0"/>
                 </FormControl>
                 <FormMessage />
             </FormItem>
@@ -230,7 +231,7 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
             control={form.control}
             name="imageUrl"
             render={({ field }) => (
-            <FormItem className="w-full">
+            <FormItem className="md:w-2/4 w-full">
                 <FormControl className="h-72">
                <FileUploader onFieldChange={field.onChange}
                 imageUrl={field.value}
@@ -261,7 +262,7 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
                 <FormItem className="w-full">
                     <FormControl>
                     <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-[#121212] px-4 py-2">
-                        <Image src="/assets/icons/calendar.svg" height={24} width={24} alt="Calendar" className="filter-grey"/>
+                        {/* <Image src="/assets/icons/calendar.svg" height={24} width={24} alt="Calendar" className="filter-grey"/>
                         <p className="ml-3 whitespace-nowrap text-grey-500">Start Date</p>
                         <DatePicker  
                         selected={field.value}
@@ -269,7 +270,19 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
                         showTimeSelect
                         timeInputLabel="Time:"
                         dateFormat="MM/dd/yyyy h:mm aa"
-                        wrapperClassName="datePicker" />
+                        wrapperClassName="datePicker" /> */}
+                      <div className="bg-[#A78BFA]/30 h-8 w-8 flex justify-center items-center rounded-md ">
+                        <Calendar className="h-6 w-6" />
+                        
+                      </div>
+                      <p className="ml-3 whitespace-nowrap text-grey-500">Start Date</p>
+                        <DatePicker  
+                        selected={field.value}
+                        onChange={(date: Date | null) => field.onChange(date)} 
+                        showTimeSelect
+                        timeInputLabel="Time:"
+                        dateFormat="MM/dd/yyyy h:mm aa"
+                        wrapperClassName="datePicker" /> 
                 
                     </div>
                     
@@ -285,8 +298,11 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
                 <FormItem className="w-full">
                     <FormControl>
                     <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-[#121212] px-4 py-2">
-                        <Image src="/assets/icons/calendar.svg" height={24} width={24} alt="Calendar" className="filter-grey"/>
-                        <p className="ml-3 whitespace-nowrap text-grey-500">End Date</p>
+                        <div className="bg-[#A78BFA]/30 h-8 w-8 flex justify-center items-center rounded-md ">
+                          <Calendar className="h-6 w-6" />
+                          
+                        </div>
+                        <p className="ml-3 whitespace-nowrap text-grey-400">End Date</p>
                         <DatePicker  
                         selected={field.value}
                         onChange={(date: Date | null) => field.onChange(date)} 
@@ -310,14 +326,11 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
                 <FormItem className="w-full">
                   <FormControl>
                     <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-[#121212] px-4 py-2">
-                      <Image
-                        src="/assets/icons/dollar.svg"
-                        alt="dollar"
-                        width={24}
-                        height={24}
-                        className="filter-grey"
-                      />
-                      <Input type="number" placeholder="Price" {...field} className="p-regular-16 border-0 bg-[#121212] outline-offset-0 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0" />
+                    <div className="bg-[#A78BFA]/30 h-8 w-8 flex justify-center items-center rounded-md ">
+                        <DollarSign className="h-6 w-6" />
+                        
+                      </div>
+                      <Input type="number" placeholder="Price" {...field} className="p-regular-16 border-0 bg-[#121212] outline-offset-0 focus:border focus:border-primary-800  focus-visible:ring-0 focus-visible:ring-offset-0" />
                       <FormField
                         control={form.control}
                         name="isFree"
@@ -355,14 +368,12 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
                 <FormItem className="w-full">
                   <FormControl>
                     <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-[#121212] px-4 py-2">
-                      <Image
-                        src="/assets/icons/link.svg"
-                        alt="link"
-                        width={24}
-                        height={24}
-                      />
+                      <div className="bg-[#A78BFA]/30 h-8 w-8 flex justify-center items-center rounded-md ">
+                          <Link className="h-6 w-6" />
+                          
+                      </div>
 
-                      <Input placeholder="URL" {...field} className="input-field" />
+                      <Input placeholder="URL" {...field} className="p-regular-16 border-0 bg-[#121212] outline-offset-0 focus:border focus:border-primary-800  focus-visible:ring-0 focus-visible:ring-offset-0" />
                     </div>
 
                   </FormControl>
@@ -379,8 +390,11 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
                 <FormItem className="w-full">
                     <FormControl>
                     <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-[#121212] px-4 py-2">
-                        <Image src="/assets/icons/location-grey.svg" height={24} width={24} alt="location"/>
-                        <Input placeholder="Event location or online" {...field} className="input-field"/>
+                    <div className="bg-[#A78BFA]/30 h-8 w-8 flex justify-center items-center rounded-md ">
+                          <MapPin className="h-6 w-6" />
+                          
+                      </div>
+                        <Input placeholder="Event location or online" {...field} className="p-regular-16 border-0 bg-[#121212] outline-offset-0 focus:border focus:border-primary-800  focus-visible:ring-0 focus-visible:ring-offset-0"/>
                         {/* <input {...field} ref={inputRef} placeholder="Event location or online" className="input-field"/> */}
                     </div>
                     

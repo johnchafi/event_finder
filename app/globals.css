@@ -66,12 +66,12 @@
   }
 }
 
-* {
-  list-style: none;
+/* * {
+list-style: none;
   padding: 0;
   margin: 0;
   scroll-behavior: smooth;
-}
+} */
 
 body {
   font-family: var(--font-poppins)
@@ -205,12 +205,12 @@ body {
   }
 
   /* SHADCN OVERRIDES */
-  .select-field {
-    @apply w-full bg-grey-50 h-[54px] placeholder:text-grey-500 rounded-full p-regular-16 px-5 py-3 border-none focus-visible:ring-transparent focus:ring-transparent !important;
+  /* .select-field {
+    @apply w-full bg-gray-400 h-[54px] placeholder:text-grey-500 rounded-full p-regular-16 px-5 py-3 border-none focus-visible:ring-transparent focus:ring-transparent !important;
   }
 
-  /* .input-field {
-    @apply bg-grey-50 h-[54px] focus-visible:ring-offset-0 placeholder:text-grey-500 rounded-full p-regular-16 px-4 py-3 border-none focus-visible:ring-transparent !important;
+  .input-field {
+    @apply bg-gray-50 h-[54px] focus-visible:ring-offset-0 placeholder:text-gray-500 rounded-full p-regular-16 px-4 py-3 border-none focus-visible:ring-transparent !important;
   } */
 
   /* .textarea {
@@ -277,6 +277,8 @@ body {
 .black-gradient {
   background: linear-gradient(90deg, #161a31 0%, #06091f 100%);
 }
+
+/* ========================================== Editor STYLES */
 .ProseMirror{
   background-color: black;
   color: white;

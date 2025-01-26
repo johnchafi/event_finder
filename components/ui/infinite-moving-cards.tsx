@@ -93,7 +93,7 @@ export const InfiniteMovingCards = ({
             <div className="flex items-center gap-3 flex-shrink-0">
             <Image
               src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screen%20Shot%202025-01-19%20at%202.46.16%20PM-dMinn46QLlBcgPOfZivqlyh6NuSIEN.png"
-              alt="DJ Marnaud"
+              alt="DJ"
               width={70}
               height={70}
               className="rounded-full"
