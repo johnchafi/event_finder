@@ -101,12 +101,15 @@ import CheckoutButton from "@/components/shared/CheckoutButton"
 import { Editor } from '@/components/ui/editor';
 import ShareButtons from "@/components/ui/shareButtons"
 
+import MyMap from "@/components/ui/map"
+import PlacesAutocomplete from "@/components/ui/autocomplete"
+
 export default async function EventDetails({ params: { id }, searchParams }: SearchParamProps) {
   const event = await getEventById(id);
   const {organizer} = event;
 
   return (
-    <section className="wrapper min-h-screen w-full bg-black text-white">
+    <section className="wrapper w-full bg-black">
         {/* Back Button */}
         <Link href="/explore">
           <Button variant="ghost" className="mb-6 bg-[#A78BFA]/30">
@@ -150,7 +153,7 @@ export default async function EventDetails({ params: { id }, searchParams }: Sea
             </div>
 
             {/* Title */}
-            <h1 className="text-4xl font-bold">{event.title}</h1>
+            <h1 className="text-xl font-bold">{event.title}</h1>
 
             {/* Organizer */}
             <div className="flex items-center space-x-3">
@@ -174,17 +177,20 @@ export default async function EventDetails({ params: { id }, searchParams }: Sea
             </div>
 
             {/* Location */}
-            <div className="rounded-lg bg-zinc-800 p-4">
-              <h3 className="font-semibold pb-4">{event.location}</h3>
-              <p className="text-sm text-zinc-400">View</p>
-            </div>
+            
+              <div className="rounded-lg bg-zinc-800 p-4">
+                <h3 className="font-semibold pb-4">{event.location}</h3>
+                <a href="/google.com" target="_blank" className="text-sm text-zinc-400 hover:text-primary-800">
+                  View
+                </a>
+              </div>
+          
+         
+            {/* <PlacesAutocomplete /> */}
           </div>
-          {/* <Card className="bg-zinc-800 border-zinc-700"> */}
-              {/* <Editor /> */}
-              {/* <h2 className="mb-4 text-xl font-semibold">Yola</h2> */}
-          {/* </Card> */}
+      
           {/* Right Column */}
-          <div className="space-y-6">
+          <div className="space-y-6 h-auto flex flex-col flex-1">
             {/* Tickets Section */}
             
              <Card className="bg-zinc-800 border-zinc-700">
@@ -214,11 +220,11 @@ export default async function EventDetails({ params: { id }, searchParams }: Sea
               </CardContent>  
             </Card>
             
-            <Card className="bg-zinc-800 border-zinc-700">
-              <CardContent className="p-6">
-                <h2 className="mb-4 text-xl font-semibold">Location</h2>
-                <div className="h-40 rounded-lg bg-zinc-700"></div>
+            <Card className="bg-zinc-800 border-zinc-700 relative w-full h-48">
+              <CardContent className="p-3 ">
+                <h2 className="mb-1 text-xl font-semibold">Location</h2>
               </CardContent>
+               <MyMap /> 
             </Card>
           </div>
         </div>

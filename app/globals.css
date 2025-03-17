@@ -285,3 +285,7 @@ body {
   border-color: gray;
   /* border-color:#121212; */
 }
+
+.map-container{
+  position: "none";
+}

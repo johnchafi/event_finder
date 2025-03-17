@@ -47,14 +47,14 @@ export const DropDown = ({value, onchangeHandler}: DropdownProps) => {
       getcategories();
     }, [])
   return (
-    <Select onValueChange={onchangeHandler} defaultValue={value}>
-        <SelectTrigger className="w-[180px] dark:bg-[#121212]">
+    <Select onValueChange={onchangeHandler} defaultValue={value} className="focus:border focus:border-primary-800 focus-visible:ring-0 focus-visible:ring-offset-0">
+        <SelectTrigger className="w-[180px] bg-background focus:border focus:border-primary-800 focus-visible:ring-0 focus-visible:ring-offset-0">
             <SelectValue placeholder="Category" />
         </SelectTrigger>
-        <SelectContent className='dark:bg-[#121212] hover:cursor-pointer'>
+        <SelectContent className='bg-background hover:cursor-pointer'>
           {
             categories.length > 0 && categories.map((category) => (
-                <SelectItem key={category._id} value={category._id} className='select-item p-regular-14 hover:cursor-pointer'>
+                <SelectItem key={category._id} value={category._id} className='select-item p-regular-14 hover:cursor-pointer '>
                     {
                          category.name
                     }

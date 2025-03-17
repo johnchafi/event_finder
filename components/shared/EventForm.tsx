@@ -33,6 +33,9 @@ import { Editor } from "../ui/editor"
 import dynamic from "next/dynamic";
 import { Card } from "../ui/card"
 import { Calendar,DollarSign, Link, MapPin} from "lucide-react"
+import MyMap from "../ui/map"
+import PlacesAutocomplete from "../ui/autocomplete"
+
 
 //import { useLoadScript } from "@react-google-maps/api";
 
@@ -56,51 +59,7 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
 
     const [files, setFiles] = useState<File[]>([]);
     const [description, setDescription] = useState(event && type === 'Update' ? event.description ?? "" : "");
-    // const libraries: ("places" | "drawing" | "geometry" | "visualization")[] = ["places"];
-    // const { isLoaded, loadError } = useLoadScript({
-    //   googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY || '',
-    //   libraries,
-    // });
-    // const inputRef = useRef(null);
-    //const [EditorTry, setEditorTry] = useState<any>(null);
-
-    // useEffect(() => {
-    //     setEditorTry(Editor);
-    // }, [])
-    // const Map = useMemo(() => dynamic(
-    //   () => import('@/components/ui/map'),
-    //   { 
-    //     loading: () => <p>A map is loading</p>,
-    //     ssr: false
-    //   }
-    // ), [])
-     // const handleChange = (event) => {
-      //   const {name, value} = event.target;
-      //   setInput((values) => ({ ...values, [name]: value }));
-      // };
-    // useEffect(() => {
-    //   if (!isLoaded || loadError) return;
-  
-    //   const options = {
-    //     componentRestrictions: { country: "USA" },
-    //     fields: ["address_components", "geometry"],
-    //   };
-  
-     
-    //     const autocomplete = new google.maps.places.Autocomplete("1125 rue" as unknown as HTMLInputElement, options);
-    //     console.log(autocomplete);
-    //     //autocomplete.addListener("place_changed", () => console.log(autocomplete));
-      
-  
-    //   // return () => autocomplete.removeListener("place_changed", handlePlaceChanged);
-    // }, [isLoaded, loadError]);
-  //   const Map = useMemo(() => dynamic(
-  //     () => import('@/components/ui/map'),
-  //     {
-  //         loading: () => <p>A map is loading</p>,
-  //         ssr: false
-  //     }
-  // ), [])
+    const [location, setLocation] = useState(event && type === 'Update' ? event.location ?? "" : "");
   
     const initialValues = event && type === 'Update' ? {
         ...event,
@@ -131,7 +90,7 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
         if(type === 'Create'){
             try{
                 const newEvent = await createEvent({
-                    event: {... values, imageUrl: uploadedImageUrl, description},
+                    event: {... values, imageUrl: uploadedImageUrl, description, location},
                     userId : userId,
                     path:'profile',
                 })
@@ -152,7 +111,7 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
             }
             try{
                 const updatedEvent = await updateEvent({
-                    event: {... values, imageUrl: uploadedImageUrl, _id: eventId, description: description},
+                    event: {... values, imageUrl: uploadedImageUrl, _id: eventId, description, location},
                     userId : userId,
                     path:`/events/${eventId}`,
                 })
@@ -168,20 +127,7 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
         }
 
       }
-      // const handleChange = (event) => {
-      //   const {name, value} = event.target;
-      //   setInput((values) => ({ ...values, [name]: value }));
-      // };
-      // const handlePlaceChanged = async(address) => {
-      //   if (!isLoaded) return;
-      //   const place = address.getPlace()
-    
-      //   if (!place || !place.geometry) {
-      //     setInput({});
-      //     return;
-      //   }
-      //   formData(place);
-      // };
+
   return (
     <Form {...form}>
     <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 md:wrapper">
@@ -192,7 +138,7 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
             render={({ field }) => (
             <FormItem className="w-full">
                 <FormControl>
-                <Input placeholder="Event title" {...field} className="p-regular-16 border-0 bg-[#121212] outline-offset-0 focus:border focus:border-primary-800 focus-visible:ring-0 focus-visible:ring-offset-0"/>
+                <Input placeholder="Event title" {...field} className="p-regular-16 outline-offset-0 focus:border focus:border-primary-800 focus-visible:ring-0 focus-visible:ring-offset-0"/>
                 </FormControl>
                 <FormMessage />
             </FormItem>
@@ -202,9 +148,9 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
             control={form.control}
             name="categoryId"
             render={({ field }) => (
-            <FormItem className="w-full text-white">
-                <FormControl>
-                <DropDown onchangeHandler={field.onChange} value={field.value}/>
+            <FormItem className="w-full text-muted-foreground">
+                <FormControl >
+                <DropDown  onchangeHandler={field.onChange} value={field.value} />
                 </FormControl>
                 <FormMessage />
             </FormItem>
@@ -212,20 +158,7 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
            />
         </div>
 
-        <div className="w-full flex flex-col gap-5 md:justify-between">
-        {/* <p>Description</p> */}
-        {/* <FormField
-            control={form.control}
-            name="description"
-            render={({ field }) => (
-            <FormItem className="w-full">
-                <FormControl className="h-72">
-                <Textarea placeholder="Description" {...field} className="textarea rounded-2xl"/>
-                </FormControl>
-                <FormMessage />
-            </FormItem>
-            )}
-         /> */}
+        <div className="flex flex-col md:flex-row  gap-5 w-full">
 
          <FormField
             control={form.control}
@@ -242,15 +175,27 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
           </FormItem>
             )}
            />
-         <div className="w-full flex flex-col gap-6">
-             <p>Description</p>
-            <Card className="bg-zinc-800 border-zinc-700">
-            <Editor editorContent={description} onChange={setDescription} editable={true} hideToolBar={false}/>
-              {/* <h2 className="mb-4 text-xl font-semibold">Yola</h2> */}
-          </Card>
-         </div>
-        
-        
+
+          <div className="w-full">
+            <FormField 
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                <FormItem className="w-full">
+                    <FormControl className="h-72">
+                    <Textarea placeholder="Description" {...field} className="textarea rounded-2xl"/>
+                    </FormControl>
+                    <FormMessage />
+                </FormItem>
+                )}
+            />
+          </div>
+                    {/* <div className="w-full flex flex-col gap-6">
+                        <p>Description</p>
+                        <Card className="bg-zinc-800 border-zinc-700">
+                        <Editor editorContent={description} onChange={setDescription} editable={true} hideToolBar={false}/>
+                      </Card>
+                    </div> */}
        
         </div>
    
@@ -261,28 +206,19 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
                 render={({ field }) => (
                 <FormItem className="w-full">
                     <FormControl>
-                    <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-[#121212] px-4 py-2">
-                        {/* <Image src="/assets/icons/calendar.svg" height={24} width={24} alt="Calendar" className="filter-grey"/>
-                        <p className="ml-3 whitespace-nowrap text-grey-500">Start Date</p>
-                        <DatePicker  
-                        selected={field.value}
-                        onChange={(date: Date | null) => field.onChange(date)} 
-                        showTimeSelect
-                        timeInputLabel="Time:"
-                        dateFormat="MM/dd/yyyy h:mm aa"
-                        wrapperClassName="datePicker" /> */}
-                      <div className="bg-[#A78BFA]/30 h-8 w-8 flex justify-center items-center rounded-md ">
+                    <div className="flex-center h-[54px] w-full overflow-hidden  px-4 py-2">
+                      <div className="h-8 w-8 flex justify-center items-center rounded-md ">
                         <Calendar className="h-6 w-6" />
                         
                       </div>
-                      <p className="ml-3 whitespace-nowrap text-grey-500">Start Date</p>
+                      <p className="ml-3 whitespace-nowrap text-muted-foreground">Start Date</p>
                         <DatePicker  
                         selected={field.value}
                         onChange={(date: Date | null) => field.onChange(date)} 
                         showTimeSelect
                         timeInputLabel="Time:"
                         dateFormat="MM/dd/yyyy h:mm aa"
-                        wrapperClassName="datePicker" /> 
+                        wrapperClassName="datePicker bg-background" /> 
                 
                     </div>
                     
@@ -297,19 +233,19 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
                 render={({ field }) => (
                 <FormItem className="w-full">
                     <FormControl>
-                    <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-[#121212] px-4 py-2">
-                        <div className="bg-[#A78BFA]/30 h-8 w-8 flex justify-center items-center rounded-md ">
+                    <div className="flex-center h-[54px] w-full overflow-hidden  px-4 py-2">
+                        <div className="h-8 w-8 flex justify-center items-center rounded-md ">
                           <Calendar className="h-6 w-6" />
                           
                         </div>
-                        <p className="ml-3 whitespace-nowrap text-grey-400">End Date</p>
+                        <p className="ml-3 whitespace-nowrap text-muted-foreground ">End Date</p>
                         <DatePicker  
                         selected={field.value}
                         onChange={(date: Date | null) => field.onChange(date)} 
                         showTimeSelect
                         timeInputLabel="Time:"
                         dateFormat="MM/dd/yyyy h:mm aa"
-                        wrapperClassName="datePicker" />
+                        wrapperClassName="datePicker  bg-background" />
                     </div>
                     </FormControl>
                     <FormMessage />
@@ -318,19 +254,19 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
             />
         </div>
 
-        <div className="flex flex-col gap-5 md:flex-row">
+      <div className="flex flex-col gap-5 md:flex-row">
         <FormField
               control={form.control}
               name="price"
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormControl>
-                    <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-[#121212] px-4 py-2">
-                    <div className="bg-[#A78BFA]/30 h-8 w-8 flex justify-center items-center rounded-md ">
+                    <div className="flex-center h-[54px] w-full overflow-hidden rounded-full px-4 py-2">
+                    <div className=" h-8 w-8 flex justify-center items-center rounded-md ">
                         <DollarSign className="h-6 w-6" />
                         
                       </div>
-                      <Input type="number" placeholder="Price" {...field} className="p-regular-16 border-0 bg-[#121212] outline-offset-0 focus:border focus:border-primary-800  focus-visible:ring-0 focus-visible:ring-offset-0" />
+                      <Input type="number" placeholder="Price" {...field} className="p-regular-16 outline-offset-0 focus:border focus:border-primary-800  focus-visible:ring-0 focus-visible:ring-offset-0 mr-4" />
                       <FormField
                         control={form.control}
                         name="isFree"
@@ -338,7 +274,7 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
                           <FormItem>
                             <FormControl>
                               <div className="flex items-center">
-                                <label htmlFor="isFree" className="whitespace-nowrap pr-3 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Free Ticket</label>
+                                <label htmlFor="isFree" className="whitespace-nowrap text-muted-foreground  pr-3 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Free Ticket</label>
                                 <Checkbox
                                   onCheckedChange={field.onChange}
                                   checked={field.value}
@@ -367,19 +303,20 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormControl>
-                    <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-[#121212] px-4 py-2">
-                      <div className="bg-[#A78BFA]/30 h-8 w-8 flex justify-center items-center rounded-md ">
+                    <div className="flex-center h-[54px] w-full overflow-hidden rounded-full px-4 py-2">
+                      <div className=" h-8 w-8 flex justify-center items-center rounded-md ">
                           <Link className="h-6 w-6" />
                           
                       </div>
 
-                      <Input placeholder="URL" {...field} className="p-regular-16 border-0 bg-[#121212] outline-offset-0 focus:border focus:border-primary-800  focus-visible:ring-0 focus-visible:ring-offset-0" />
+                      <Input placeholder="URL" {...field} className="p-regular-16 outline-offset-0 focus:border focus:border-primary-800  focus-visible:ring-0 focus-visible:ring-offset-0" />
                     </div>
 
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
+              //bg-[#A78BFA]/30
             /> 
         </div>
         <div className="flex flex-col gap-5 md:flex-row">
@@ -389,13 +326,14 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
                 render={({ field }) => (
                 <FormItem className="w-full">
                     <FormControl>
-                    <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-[#121212] px-4 py-2">
-                    <div className="bg-[#A78BFA]/30 h-8 w-8 flex justify-center items-center rounded-md ">
+                    <div className="flex-center h-[54px] w-full overflow-hidden rounded-full px-4 py-2">
+                    <div className="h-8 w-8 flex justify-center items-center rounded-md ">
                           <MapPin className="h-6 w-6" />
                           
                       </div>
-                        <Input placeholder="Event location or online" {...field} className="p-regular-16 border-0 bg-[#121212] outline-offset-0 focus:border focus:border-primary-800  focus-visible:ring-0 focus-visible:ring-offset-0"/>
+                        {/* <Input placeholder="Event location or online" {...field} className="p-regular-16 border-0 bg-[#121212] outline-offset-0 focus:border focus:border-primary-800  focus-visible:ring-0 focus-visible:ring-offset-0"/> */}
                         {/* <input {...field} ref={inputRef} placeholder="Event location or online" className="input-field"/> */}
+                        <PlacesAutocomplete location={location} setLocation={setLocation}/> 
                     </div>
                     
                     </FormControl>
@@ -403,9 +341,9 @@ const  EventForm = ({userId, type, event, eventId }: EventFormProps) => {
                 </FormItem>
                 )}
             />
-
-            {/* <Map position={[51.505, -0.09]} zoom={13} /> */}
+          
         </div>
+       
       <Button 
       type="submit"
       size="lg"

@@ -12,6 +12,7 @@ import {Poppins} from "next/font/google";
 import { dark } from '@clerk/themes'
 import { ThemeProvider } from '@/components/ui/theme-provider';
 import CustomCursor from '@/components/ui/custom-cursor';
+import Script from "next/script";
 
 
 import "./globals.css";
@@ -53,7 +54,13 @@ export default function RootLayout({
             baseTheme: dark,
           }} 
         >
-          
+      <head>
+        <Script
+        
+          // src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg=places"
+          // src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuiizcLHytHUEtxto1OOBzpEdNixSO4LM=places"
+        />
+      </head> 
         <html lang="en" className='bg-black'>
           <body
             className={poppins.variable}
@@ -74,21 +81,6 @@ export default function RootLayout({
         </html>
 
       </ClerkProvider>
-
-
-  //   <ClerkProvider>
-  //   <html lang="en">
-  //     <body>
-  //       <SignedOut>
-  //         <SignInButton />
-  //       </SignedOut>
-  //       <SignedIn>
-  //         <UserButton />
-  //       </SignedIn>
-  //       {children}
-  //     </body>
-  //   </html>
-  // </ClerkProvider>
     
   );
 }
